@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>BUSK.ExtensionTemplate</PackageId>
+    <Description>A Package which provides template for building extensions for BUSK</Description>
+    <PackageTags>BUSK Extension Template</PackageTags>
+  
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <ContentTargetFolders>Content</ContentTargetFolders>
+    <PackageIcon>128.png</PackageIcon>
+  
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Content Include="Templates\**\*" Exclude="Templates\**\bin\**;Templates\**\obj\**;Templates\BUSKExtension\BUSKExtension.csproj.user;Templates\BUSKExtension\.vs\BUSKExtension\v16\**" />
+    <Compile Remove="**\*" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Remove="128.png" />
+    <None Include="128.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Resource Include="128.png" />
+  </ItemGroup>
+ 
+</Project>

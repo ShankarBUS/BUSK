@@ -1,0 +1,73 @@
+﻿<Page x:Class="BUSK.Navigation.Pages.NetStatusPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:busk="http://schemas.busk.com/2020" xmlns:ui="http://schemas.modernwpf.com/2019" xmlns:vm="clr-namespace:BUSK.ViewModels"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800" DataContext="{x:Static vm:NetPageViewModel.Instance}"
+      Title="CPU Status">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <DockPanel>
+                <Grid DockPanel.Dock="Top">
+                    <TextBlock Text="{Binding NetworkInfo}" HorizontalAlignment="Left" TextAlignment="Center" Margin="20" Style="{DynamicResource SubtitleTextBlockStyle}"/>
+                    <ComboBox ItemsSource="{Binding Source={x:Static busk:NetPerfManager.Instance}, Path=NetInterfaces}"
+                              SelectedItem="{Binding Source={x:Static busk:NetPerfManager.Instance}, Path=CurrentNetInterface}"
+                              VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10"/>
+                </Grid>
+                <ContentPresenter x:Name="Host" Margin="50" Content="{Binding GraphView}"/>
+            </DockPanel>
+        </ScrollViewer>
+        <ui:ThemeShadowChrome Grid.Row="0" Depth="20">
+            <Grid Background="{DynamicResource ApplicationPageBackgroundThemeBrush}">
+                <TextBlock Text="Network" Style="{DynamicResource TitleTextBlockStyle}" VerticalAlignment="Center" Margin="30"/>
+                <ui:ToggleSwitch IsOn="{Binding Source={x:Static busk:NetPerfManager.Instance}, Path=IsEnabled}"
+                                 WindowChrome.IsHitTestVisibleInChrome="True" Margin="10" HorizontalAlignment="Right">
+                    <ui:ToggleSwitch.OnContent>Enabled</ui:ToggleSwitch.OnContent>
+                    <ui:ToggleSwitch.OffContent>Disabled</ui:ToggleSwitch.OffContent>
+                </ui:ToggleSwitch>
+                <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5" Command="{Binding GraphView.MiniViewCommand}">
+                    <ui:FontIcon FontSize="16" Glyph="{Binding GraphView.MiniViewGlyph}"/>
+                </Button>
+            </Grid>
+        </ui:ThemeShadowChrome>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" Grid.Row="2" Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}">
+            <StackPanel Orientation="Horizontal">
+                <Grid Margin="10,0,10,0">
+                    <TextBlock Margin="10,10,0,0">Statistics</TextBlock>
+                    <Border Margin="20,35,5,15" Padding="10" CornerRadius="{DynamicResource OverlayCornerRadius}" Background="{DynamicResource ApplicationPageBackgroundThemeBrush}">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Margin="5" Orientation="Horizontal">
+                                <Line Y1="0" Y2="15" VerticalAlignment="Center" Margin="0,0,5,0" Stroke="{DynamicResource NetLineSeriesDownStroke}" StrokeThickness="2" StrokeDashArray="1" />
+                                <TextBlock Text="{Binding Source={x:Static busk:NetPerfManager.Instance}, Path=Up, StringFormat='Send : {0}'}" />
+                            </StackPanel>
+                            <StackPanel Margin="5" Orientation="Horizontal">
+                                <Line Y1="0" Y2="15" VerticalAlignment="Center" Margin="0,0,5,0" Stroke="{DynamicResource NetLineSeriesUpStroke}" StrokeThickness="2" />
+                                <TextBlock Text="{Binding Source={x:Static busk:NetPerfManager.Instance}, Path=Down, StringFormat='Receive : {0}'}" />
+                            </StackPanel>
+                            <TextBlock Margin="5" Text="{Binding Source={x:Static busk:NetPerfManager.Instance}, Path=TotalUp, StringFormat='Total Sent : {0}'}" />
+                            <TextBlock Margin="5" Text="{Binding Source={x:Static busk:NetPerfManager.Instance}, Path=TotalDown, StringFormat='Total Received : {0}'}"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+                <Grid Margin="0,0,10,0">
+                    <TextBlock Margin="10,10,0,0">Properties</TextBlock>
+                    <Border Margin="20,35,5,15" Padding="10" CornerRadius="{DynamicResource OverlayCornerRadius}" Background="{DynamicResource ApplicationPageBackgroundThemeBrush}">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Margin="5" Text="{Binding Path=MACAddress, StringFormat='MAC Address : {0}'}" />
+                            <TextBlock Margin="5" Text="{Binding Path=NetworkInterfaceType, StringFormat='Connection Type : {0}'}" />
+                            <TextBlock Margin="5" Text="{Binding Path=IPv4, StringFormat='IPv4 Address : {0}'}" />
+                            <TextBlock Margin="5" Text="{Binding Path=IPv6, StringFormat='IPv6 Address : {0}'}" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

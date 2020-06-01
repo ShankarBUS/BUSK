@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\BUSK.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Management" Version="5.0.0-preview.4.20251.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BUSK.Core\BUSK.Core.csproj" />
+    <ProjectReference Include="..\BUSK.UI\BUSK.UI.csproj" />
+    <ProjectReference Include="..\Charting\BUSK.Charting.WPF\BUSK.Charting.WPF.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Navigation\Pages\NetStatusPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Navigation\Pages\RAMStatusPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Navigation\Pages\DiskStatusPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Properties\DesignTimeResources.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Properties\DesignTimeResources.xaml">
+      <ContainsDesignTimeResources>True</ContainsDesignTimeResources>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Navigation\Pages\NetStatusPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Navigation\Pages\RAMStatusPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Navigation\Pages\DiskStatusPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

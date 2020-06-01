@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>Settings Navigation Page (BUSK)</Name>
+    <Description>A Navigation Page to display in BUSK Settings Window</Description>
+    <Icon>BUSKSettingsNavPageTemplate.ico</Icon>
+    <ProjectType>CSharp</ProjectType>
+    <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+    <DefaultName>SettingsNavPage.xaml</DefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <ProjectItem ReplaceParameters="true" TargetFileName="$fileinputname$.xaml" OpenInEditor="true" ItemType="Page">SettingsNavPage.xaml</ProjectItem>
+    <ProjectItem ReplaceParameters="true" TargetFileName="$fileinputname$.xaml\$fileinputname$.xaml.cs">SettingsNavPage.xaml.cs</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

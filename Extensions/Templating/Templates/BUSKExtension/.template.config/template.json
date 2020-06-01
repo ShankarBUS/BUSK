@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "ShankarBUS",
+  "classifications": ["BUSK", "Extension"],
+  "name": "BUSK Extension Library",
+  "generatorVersions": "[0.1.0.0-*)",
+  "description": "A project for creating a custom control library for .NET Core WPF Applications",
+  "groupIdentity": "BUSK.Extension",
+  "precedence": "3000",
+  "identity": "BUSK.Extension.CSharp.3.1",
+  "shortName": "buskext",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "BUSKExtension",
+  "preferNameDirectory": true,
+}

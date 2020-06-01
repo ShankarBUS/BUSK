@@ -1,0 +1,43 @@
+﻿<!--
+    
+-->
+    
+<UserControl x:Class="BUSK.Charting.WPF.DefaultGeoMapTooltip"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:bcw="clr-namespace:BUSK.Charting.WPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance bcw:DefaultGeoMapTooltip}"
+             BorderThickness="1.3">
+    <UserControl.Background>
+        <SolidColorBrush Color="#202020" Opacity=".8" />
+    </UserControl.Background>
+    <UserControl.Resources>
+        <bcw:GeoDataLabelConverter x:Key="DataLabelConverter"></bcw:GeoDataLabelConverter>
+    </UserControl.Resources>
+    <UserControl.Template>
+        <ControlTemplate>
+            <Border Background="{Binding Background}" CornerRadius="{Binding CornerRadius}"
+                    BorderThickness="{Binding BorderThickness}" Padding="20 10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontWeight="Bold" Foreground="White" Text="{Binding GeoData.Name}"></TextBlock>
+                    <TextBlock Grid.Column="1" Margin="10 0 0 0" Foreground="White" FontWeight="Bold">
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource DataLabelConverter}">
+                                <Binding Path="GeoData.Value" />
+                                <Binding Path="LabelFormatter" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+    </UserControl.Template>
+</UserControl>

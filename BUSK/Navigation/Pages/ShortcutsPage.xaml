@@ -1,0 +1,136 @@
+﻿<Page x:Class="BUSK.Navigation.Pages.ShortcutsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:busk="http://schemas.busk.com/2020" xmlns:ui="http://schemas.modernwpf.com/2019" xmlns:vms="clr-namespace:BUSK.ViewModels"
+      xmlns:util="clr-namespace:BUSK.Utilities" xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Shortcuts" DataContext="{x:Static vms:ShortcutsViewModel.Instance}">
+    <Page.Resources>
+        <CollectionViewSource x:Key='Shortcuts' Source="{Binding Source={x:Static busk:ShortcutsManager.Instance}, Path=Shortcuts}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="ShortcutType" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" AllowDrop="True" Drop="FileDrop" DragOver="FileDragOver" Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" >
+            <Grid.Resources>
+                <busk:InvertCountToVisibilityConverter x:Key="InvertCountToVisibilityConverter"/>
+                <Storyboard x:Key="DragEnter">
+                    <ObjectAnimationUsingKeyFrames BeginTime="0:0:0.0" Storyboard.TargetProperty="Visibility" Storyboard.TargetName="DropMsg">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <DoubleAnimation Duration="0:0:0.200" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="DropMsg">
+                        <DoubleAnimation.EasingFunction>
+                            <CircleEase EasingMode="EaseOut"/>
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+                <Storyboard x:Key="DragExit">
+                    <DoubleAnimation Duration="0:0:0.200" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="DropMsg">
+                        <DoubleAnimation.EasingFunction>
+                            <CircleEase EasingMode="EaseOut"/>
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                    <ObjectAnimationUsingKeyFrames BeginTime="0:0:0.200" Storyboard.TargetProperty="Visibility" Storyboard.TargetName="DropMsg">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
+                    </ObjectAnimationUsingKeyFrames>
+                </Storyboard>
+            </Grid.Resources>
+            <TextBlock HorizontalAlignment="Center" Margin="10" VerticalAlignment="Top" Style="{DynamicResource BodyTextBlockStyle}" Text="No shortcuts are available" Visibility="{Binding ElementName=ItemsContainer, Path=ItemsSource.Count, Mode=OneWay, Converter={StaticResource InvertCountToVisibilityConverter}}"/>
+            <ScrollViewer>
+                <ItemsControl x:Name="ItemsContainer" ItemsSource="{Binding Source={StaticResource Shortcuts}}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type busk:Shortcut}">
+                            <ui:ThemeShadowChrome CornerRadius="{DynamicResource ShadowedBorderCornerRadius}" Depth="{DynamicResource ShadowedBorderDepth}" Margin="10">
+                                <Border Height="135" CornerRadius="{DynamicResource ShadowedBorderCornerRadius}" Background="{DynamicResource ApplicationPageBackgroundThemeBrush}">
+                                    <Border.Resources>
+                                        <busk:ShortcutTypeToVisibilityConverter x:Key="ShortcutTypeToVisibilityConverter"/>
+                                        <BooleanToVisibilityConverter  x:Key="BooleanToVisibilityConverter"/>
+                                    </Border.Resources>
+                                    <Grid>
+                                        <DockPanel>
+                                            <Image DockPanel.Dock="Left" Margin="20" Source="{Binding ImageSource}" Width="64" Height="64" Stretch="Uniform"/>
+                                            <Grid DockPanel.Dock="Right">
+                                                <ui:ToggleSwitch IsOn="{Binding IsEnabled}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10">
+                                                    <ui:ToggleSwitch.OnContent>Enabled</ui:ToggleSwitch.OnContent>
+                                                    <ui:ToggleSwitch.OffContent>Disabled</ui:ToggleSwitch.OffContent>
+                                                </ui:ToggleSwitch>
+                                                <WrapPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
+                                                    <Button Margin="5" ToolTip="Edit Shortcut" Command="{Binding EditCommand}">
+                                                        <ui:FontIcon FontSize="16" Glyph="{x:Static util:BUSKGlyphs.Edit}"/>
+                                                    </Button>
+                                                    <Button Margin="5" ToolTip="Run Shortcut" Command="{Binding RunCommand}">
+                                                        <ui:FontIcon FontSize="16" Glyph="{x:Static util:BUSKGlyphs.Play}"/>
+                                                    </Button>
+                                                    <Button Margin="5" ToolTip="Pin Shortcut" Command="{Binding PinCommand}">
+                                                        <ui:FontIcon FontSize="16" Glyph="{x:Static util:BUSKGlyphs.Pin}"/>
+                                                    </Button>
+                                                    <Button Margin="5" ToolTip="Delete Shortcut" Command="{Binding DeleteCommand}">
+                                                        <ui:FontIcon FontSize="16" Glyph="{x:Static util:BUSKGlyphs.Delete}"/>
+                                                    </Button>
+                                                </WrapPanel>
+                                            </Grid>
+                                            <StackPanel Margin="0,20,20,20">
+                                                <TextBlock Style="{DynamicResource SubtitleTextBlockStyle}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Margin="5" Text="{Binding Title, Mode=OneWay}"/>
+                                                <TextBlock Style="{DynamicResource BodyTextBlockStyle}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Margin="5" Text="{Binding Description, Mode=OneWay }"/>
+                                                <TextBlock Style="{DynamicResource BodyTextBlockStyle}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Margin="5" Text="{Binding Hotkey, Mode=OneWay }"/>
+                                            </StackPanel>
+                                        </DockPanel>
+                                        <Ellipse VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15" Fill="Red" Width="6" Height="6" Visibility="{Binding IsNew, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                                        <Border Background="#44999999"  Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="10,0,50,0" Visibility="{Binding ShortcutType,Converter={StaticResource ShortcutTypeToVisibilityConverter},ConverterParameter=e}">
+                                            <ui:FontIcon FontSize="16" Margin="10" Glyph="{x:Static util:BUSKGlyphs.Puzzle}"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </ui:ThemeShadowChrome>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            <Border x:Name="DropMsg" Opacity="0" Visibility="Collapsed" Background="#99444444" CornerRadius="20" VerticalAlignment="Bottom" Margin="20">
+                <TextBlock Margin="10" Foreground="White" Text="Drop files to create new Shortcuts | Note: You have to save the new ones manually or they will be removed" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Border>
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="DragEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard Storyboard="{StaticResource DragEnter}"/>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Drop">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard Storyboard="{StaticResource DragExit}"/>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="DragLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard Storyboard="{StaticResource DragExit}"/>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Grid.Triggers>
+        </Grid>
+        <ui:ThemeShadowChrome Grid.Row="0" Depth="20">
+            <Grid Background="{DynamicResource ApplicationPageBackgroundThemeBrush}">
+                <TextBlock Text="Shortcuts" Style="{DynamicResource TitleTextBlockStyle}" VerticalAlignment="Center" Margin="30"/>
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal">
+                    <Button Margin="5" ToolTip="Add new shortcut" Command="{Binding AddShortcutCommand}">
+                        <ui:FontIcon FontSize="16" Glyph="{x:Static util:BUSKGlyphs.Add}"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </ui:ThemeShadowChrome>
+    </Grid>
+</Page>

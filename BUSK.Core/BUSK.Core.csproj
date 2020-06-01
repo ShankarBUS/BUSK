@@ -1,0 +1,72 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Description>Core library which is used for BUSK app itself and other extensions built for it</Description>
+    <PackageIcon>128.png</PackageIcon>
+    <PackageTags>BUSK Core Extension Shortcuts Performance</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\BUSK.ico" />
+    <None Remove="Assets\Images\1024.png" />
+    <None Remove="Assets\Images\128.png" />
+    <None Remove="Assets\Images\16.png" />
+    <None Remove="Assets\Images\24.png" />
+    <None Remove="Assets\Images\256.png" />
+    <None Remove="Assets\Images\32.png" />
+    <None Remove="Assets\Images\48.png" />
+    <None Remove="Assets\Images\512.png" />
+    <None Remove="Assets\Images\64.png" />
+    <None Remove="Assets\Images\96.png" />
+    <None Remove="Assets\Images\Logo Flat Thick Dark.png" />
+    <None Remove="Assets\Images\Logo Flat Thick Light.png" />
+    <None Remove="Assets\Images\Logo Flat Thick.png" />
+    <None Remove="Assets\Images\Logo Flat Thin Dark.png" />
+    <None Remove="Assets\Images\Logo Flat Thin Light.png" />
+    <None Remove="Assets\Images\Logo Flat Thin.png" />
+    <None Remove="Assets\Logo.ico" />
+    <None Include="Assets\Images\128.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <COMReference Include="Shell32.dll">
+      <Guid>50a7e9b0-70ef-11d1-b75a-00a0c90564fe</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+    </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="5.0.0-preview.4.20251.6" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Resource Include="Assets\BUSK.ico" />
+    <Resource Include="Assets\Images\1024.png" />
+    <Resource Include="Assets\Images\128.png" />
+    <Resource Include="Assets\Images\16.png" />
+    <Resource Include="Assets\Images\24.png" />
+    <Resource Include="Assets\Images\256.png" />
+    <Resource Include="Assets\Images\32.png" />
+    <Resource Include="Assets\Images\48.png" />
+    <Resource Include="Assets\Images\512.png" />
+    <Resource Include="Assets\Images\64.png" />
+    <Resource Include="Assets\Images\96.png" />
+    <Resource Include="Assets\Images\Logo Flat Thick Dark.png" />
+    <Resource Include="Assets\Images\Logo Flat Thick Light.png" />
+    <Resource Include="Assets\Images\Logo Flat Thick.png" />
+    <Resource Include="Assets\Images\Logo Flat Thin Dark.png" />
+    <Resource Include="Assets\Images\Logo Flat Thin Light.png" />
+    <Resource Include="Assets\Images\Logo Flat Thin.png" />
+    <Resource Include="Assets\Logo.ico" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,8 @@
+﻿<Project>
+  <PropertyGroup>
+    <Authors>ShankarBUS</Authors>
+    <Company>BUSK</Company>
+    <Version>0.1.0-alpha</Version>
+    <PackageOutputPath>D:\Files\BUSK Repository\</PackageOutputPath>
+  </PropertyGroup>
+</Project>

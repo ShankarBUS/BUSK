@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="BUSK.Controls.Shortcutting.ShortcutLinkerControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:busk="http://schemas.busk.com/2020" xmlns:ui="http://schemas.modernwpf.com/2019"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <busk:ShortcutTypeToVisibilityConverter x:Key="ShortcutTypeToVisibilityConverter"/>
+        <CollectionViewSource x:Key='Shortcuts' Source="{Binding Source={x:Static busk:ShortcutsManager.Instance}, Path=Shortcuts}" Filter="CollectionViewSource_Filter"/>
+    </UserControl.Resources>
+    <Grid>
+        <ui:DropDownButton>
+            <DockPanel MaxWidth="200">
+                <Image Margin="5" Source="{Binding Shortcut.ImageSource}" Width="32" Height="32" DockPanel.Dock="Left"/>
+                <StackPanel Margin="5">
+                    <TextBlock Style="{DynamicResource BaseTextBlockStyle}" Text="{Binding Shortcut.Title}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
+                    <TextBlock Style="{DynamicResource CaptionTextBlockStyle}" Text="{Binding Shortcut.Description}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
+                </StackPanel>
+            </DockPanel>
+            <ui:DropDownButton.Flyout>
+                <ui:Flyout x:Name="ListFlyout" Placement="Bottom">
+                    <Grid>
+                        <ItemsControl ItemsSource="{Binding Source={StaticResource Shortcuts}}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="busk:Shortcut">
+                                    <Button Click="SelectShortcut">
+                                        <DockPanel MaxWidth="200">
+                                            <Image Margin="5" Source="{Binding ImageSource}" Width="32" Height="32" DockPanel.Dock="Left"/>
+                                            <StackPanel Margin="5">
+                                                <TextBlock Style="{DynamicResource BaseTextBlockStyle}" Text="{Binding Title}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
+                                                <TextBlock Style="{DynamicResource CaptionTextBlockStyle}" Text="{Binding Description}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
+                                            </StackPanel>
+                                        </DockPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <ui:SimpleStackPanel Orientation="Horizontal" Spacing="15"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Grid>
+                </ui:Flyout>
+            </ui:DropDownButton.Flyout>
+        </ui:DropDownButton>
+    </Grid>
+</UserControl>

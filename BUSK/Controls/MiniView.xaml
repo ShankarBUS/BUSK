@@ -1,0 +1,39 @@
+﻿<Window x:Class="BUSK.Controls.MiniView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BUSK.Controls" xmlns:ui="http://schemas.modernwpf.com/2019"
+        mc:Ignorable="d" Height="100" Width="200"  MaxWidth="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Width}" MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height}"
+        WindowStyle="None" MinHeight="100" MinWidth="200" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" Topmost="True" Focusable="False" Background="Transparent" AllowsTransparency="True" ShowActivated="False" ShowInTaskbar="False">
+    <WindowChrome.WindowChrome>
+        <WindowChrome  CaptionHeight="0" GlassFrameThickness="0" CornerRadius="0" ResizeBorderThickness="6,2,6,10" UseAeroCaptionButtons="False" />
+    </WindowChrome.WindowChrome>
+    <Window.Resources>
+        <ContextMenu x:Key="MiniViewContextMenu">
+            <MenuItem Header="Mini View Opacity" MenuItem.Click="OpacityItem_Click">
+                <ui:RadioMenuItem
+                            Header="100%" Tag="1"
+                            GroupName="Opacity"
+                            IsChecked="True"/>
+                <ui:RadioMenuItem
+                            Header="80%" Tag="0.8"
+                            GroupName="Opacity" />
+                <ui:RadioMenuItem
+                            Header="60%" Tag="0.6"
+                            GroupName="Opacity" />
+                <ui:RadioMenuItem
+                            Header="40%" Tag="0.4"
+                            GroupName="Opacity" />
+                <ui:RadioMenuItem
+                            Header="20%" Tag="0.2"
+                            GroupName="Opacity" />
+            </MenuItem>
+            <MenuItem Header="Always on top" IsCheckable="True" IsChecked="{Binding Path=Topmost}"/>
+            <MenuItem Header="Close Mini View" InputGestureText="Double Click" Click="CloseItem_Click"/>
+        </ContextMenu>
+    </Window.Resources>
+    <ui:ThemeShadowChrome Depth="10" Margin="5,0,5,9" CornerRadius="{DynamicResource OverlayCornerRadius}">
+        <Border x:Name="ContentArea" MouseDown="ContentArea_MouseDown" ContextMenu="{StaticResource MiniViewContextMenu}" Background="{DynamicResource ApplicationPageBackgroundThemeBrush}" CornerRadius="{DynamicResource OverlayCornerRadius}" BorderBrush="{DynamicResource SystemControlBackgroundAccentBrush}" BorderThickness="1"></Border>
+    </ui:ThemeShadowChrome>
+</Window>

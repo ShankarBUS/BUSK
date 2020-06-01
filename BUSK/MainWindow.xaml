@@ -1,0 +1,35 @@
+﻿<Window x:Class="BUSK.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:busk="http://schemas.busk.com/2020" xmlns:ui="http://schemas.modernwpf.com/2019" xmlns:controls="clr-namespace:BUSK.Controls" xmlns:plot="clr-namespace:BUSK.Controls.Plotting" xmlns:system="clr-namespace:System;assembly=System.Runtime"
+        mc:Ignorable="d" ui:WindowHelper.UseModernWindowStyle="True"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.Resources>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <WrapPanel Orientation="Horizontal">
+            <Ellipse Width="30" Fill="Red" Visibility="{Binding Visible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <Ellipse Width="30" Fill="Green" Visibility="{Binding Paused, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <Button Click="ShowShortcuts">Shortcuts</Button>
+            <Button Click="ShowExtensionBases">Extensions</Button>
+            <Button Click="Test">Test</Button>
+        </WrapPanel>
+
+        <ScrollViewer Grid.Row="1">
+            <StackPanel>
+                <TextBlock Text="{Binding Source={x:Static busk:CPUPerfManager.Instance}, Path=CPUUsageText}"/>
+                <TextBlock Text="{Binding Source={x:Static busk:DiskPerfManager.Instance}, Path=DiskUsageText}"/>
+                <TextBlock Text="{Binding Source={x:Static busk:NetPerfManager.Instance}, Path=Down}"/>
+                <TextBlock Text="{Binding Source={x:Static busk:RAMPerfManager.Instance}, Path=RAMUsageText}"/>
+                <Image x:Name="test"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>BUSK Extension Library</Name>
+    <Description>A project for creating a custom extension library for BUSK</Description>
+    <Icon>BUSK.ico</Icon>
+    <PreviewImage>PreviewImage.png</PreviewImage>
+    <ProjectType>CSharp</ProjectType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>BUSKExtension</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <CreateInPlace>true</CreateInPlace>
+    <PromptForSaveOnCreation>true</PromptForSaveOnCreation>
+    <LanguageTag>C#</LanguageTag>
+    <PlatformTag>Windows</PlatformTag>
+    <ProjectTypeTag>BUSK Extension</ProjectTypeTag>
+  </TemplateData>
+  <TemplateContent>
+    <Project File="ProjectTemplate.csproj" ReplaceParameters="true">
+      <ProjectItem>Assets\Images\Logo.png</ProjectItem>
+      <ProjectItem ReplaceParameters="true">MySettingsPage.xaml</ProjectItem>
+      <ProjectItem ReplaceParameters="true">MySettingsPage.xaml.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true">ExtensionBase.cs</ProjectItem>
+      <ProjectItem TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Properties\Resources.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Properties\Resources.resx</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>

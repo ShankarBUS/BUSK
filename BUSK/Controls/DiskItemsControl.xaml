@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="BUSK.Controls.DiskItemsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:busk="http://schemas.busk.com/2020" xmlns:ui="http://schemas.modernwpf.com/2019" xmlns:controls="clr-namespace:BUSK.Controls"
+             xmlns:utils="clr-namespace:BUSK.Utilities"
+             mc:Ignorable="d"
+             d:DesignWidth="800" Height="170">
+    <UserControl.Resources>
+        <busk:CountToVisibilityConverter x:Key="CountToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden">
+            <StackPanel Orientation="Horizontal">
+                <Grid x:Name="F" Margin="10,0,10,0">
+                    <TextBlock x:Name="FHead" Margin="10,10,0,0" Text="Fixed"/>
+                    <StackPanel x:Name="FixedDisks" Margin="0,30,0,10" Orientation="Horizontal">
+                        <controls:DiskItem />
+                        <controls:DiskItem />
+                    </StackPanel>
+                </Grid>
+                <Grid x:Name="R" Margin="0,0,10,0">
+                    <TextBlock x:Name="RHead" Margin="10,10,0,0" Text="Removable"/>
+                    <StackPanel x:Name="RemovableDisks" Margin="0,30,0,10" Orientation="Horizontal">
+                        <controls:DiskItem />
+                        <controls:DiskItem />
+                    </StackPanel>
+                </Grid>
+                <Grid x:Name="C" Margin="0,0,10,0">
+                    <TextBlock x:Name="CHead" Margin="10,10,0,0" Text="CD ROMs"/>
+                    <StackPanel x:Name="CDs" Margin="0,30,0,10" Orientation="Horizontal">
+                        <controls:DiskItem />
+                        <controls:DiskItem />
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+        <Button x:Name="ButUpdate" Margin="5" ToolTip="Update drives" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <ui:FontIcon FontSize="16" Glyph="{x:Static utils:BUSKGlyphs.Refresh}"/>
+        </Button>
+    </Grid>
+</UserControl>
