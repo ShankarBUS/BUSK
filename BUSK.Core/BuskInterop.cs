@@ -62,10 +62,10 @@ namespace BUSK.Core
 
         internal static void IntializePerfCounters()
         {
-            CPUPerfManager.Instance = new CPUPerfManager();
-            DiskPerfManager.Instance = new DiskPerfManager();
-            NetPerfManager.Instance = new NetPerfManager();
-            RAMPerfManager.Instance = new RAMPerfManager();
+            CPUInformation.Instance = new CPUInformation();
+            DiskInformation.Instance = new DiskInformation();
+            NetInformation.Instance = new NetInformation();
+            RAMInformation.Instance = new RAMInformation();
         }
 
         public static void ToggleCounterState()

@@ -1,13 +1,10 @@
-﻿using BUSK.Controls;
-using BUSK.Core;
+﻿using BUSK.Core;
 using BUSK.Core.Diagnostics;
 using BUSK.Core.Extensibility;
 using BUSK.Core.Shortcutting;
 using BUSK.Navigation;
 using BUSK.Utilities;
-using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -40,8 +37,6 @@ namespace BUSK
             BuskInterop.AddMessageRequested += (s, e) => App.AddMessage(e.Message);
             BuskInterop.Initialize(this);
             ThemeHandler.Instance = new ThemeHandler();
-
-            RAMPerfManager.Instance.SetTotalRAM(HardwareInfo.GetPhysicalMemoryBytes());
 
             PageCollector.Instance = new PageCollector();
             PageCollector.Instance.Initialize();

@@ -2,11 +2,11 @@
 
 namespace BUSK.Core.Diagnostics
 {
-    public class CPUPerfManager : PerfManagerBase
+    public class CPUInformation : CounterBase
     {
         private PerformanceCounter cpu = new PerformanceCounter("Processor", "% Idle Time", "_Total");
 
-        public static CPUPerfManager Instance { get; internal set; }
+        public static CPUInformation Instance { get; internal set; }
 
         #region Properties
 

@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Management" Version="5.0.0-preview.4.20251.6" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BUSK.Core\BUSK.Core.csproj" />
     <ProjectReference Include="..\BUSK.UI\BUSK.UI.csproj" />
     <ProjectReference Include="..\Charting\BUSK.Charting.WPF\BUSK.Charting.WPF.csproj" />

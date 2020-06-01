@@ -24,10 +24,10 @@
 
         <ScrollViewer Grid.Row="1">
             <StackPanel>
-                <TextBlock Text="{Binding Source={x:Static busk:CPUPerfManager.Instance}, Path=CPUUsageText}"/>
-                <TextBlock Text="{Binding Source={x:Static busk:DiskPerfManager.Instance}, Path=DiskUsageText}"/>
-                <TextBlock Text="{Binding Source={x:Static busk:NetPerfManager.Instance}, Path=Down}"/>
-                <TextBlock Text="{Binding Source={x:Static busk:RAMPerfManager.Instance}, Path=RAMUsageText}"/>
+                <TextBlock Text="{Binding Source={x:Static busk:CPUInformation.Instance}, Path=CPUUsageText}"/>
+                <TextBlock Text="{Binding Source={x:Static busk:DiskInformation.Instance}, Path=DiskUsageText}"/>
+                <TextBlock Text="{Binding Source={x:Static busk:NetInformation.Instance}, Path=Down}"/>
+                <TextBlock Text="{Binding Source={x:Static busk:RAMInformation.Instance}, Path=RAMUsageText}"/>
                 <Image x:Name="test"/>
             </StackPanel>
         </ScrollViewer>

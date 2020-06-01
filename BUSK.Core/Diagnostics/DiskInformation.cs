@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace BUSK.Core.Diagnostics
 {
-    public class DiskPerfManager : PerfManagerBase
+    public class DiskInformation : CounterBase
     {
         private PerformanceCounter disk;
 
@@ -15,7 +15,7 @@ namespace BUSK.Core.Diagnostics
 
         public event EventHandler DiskCounterAssigned;
 
-        public static DiskPerfManager Instance { get; internal set; }
+        public static DiskInformation Instance { get; internal set; }
 
         #region Properties
 
@@ -47,7 +47,7 @@ namespace BUSK.Core.Diagnostics
 
         #endregion
 
-        public DiskPerfManager()
+        public DiskInformation()
         {
             DiskHandler.DiskUpdate += (s, e) => LoadDiskCounters();
         }

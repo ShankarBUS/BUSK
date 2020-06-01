@@ -43,7 +43,7 @@ namespace BUSK.Navigation
             if (!Exists(typeof(CPUStatusPage)))
             {
                 var cpuitem = new NavItem(typeof(CPUStatusPage)) { Icon = new FontIcon() { Glyph = BUSKGlyphs.Processor } };
-                var binding = new Binding(nameof(CPUPerfManager.CPUUsageText)) { Source = CPUPerfManager.Instance, StringFormat = "CPU : {0}" };
+                var binding = new Binding(nameof(CPUInformation.CPUUsageText)) { Source = CPUInformation.Instance, StringFormat = "CPU : {0}" };
                 BindingOperations.SetBinding(cpuitem, NavItem.TitleProperty, binding);
                 BindingOperations.SetBinding(cpuitem, NavItem.TooltipProperty, binding);
                 NavItems.Add(cpuitem);
@@ -51,7 +51,7 @@ namespace BUSK.Navigation
             if (!Exists(typeof(DiskStatusPage)))
             {
                 var diskitem = new NavItem(typeof(DiskStatusPage)) { Icon = new FontIcon() { Glyph = BUSKGlyphs.HardDrive } };
-                var binding = new Binding(nameof(DiskPerfManager.DiskUsageText)) { Source = DiskPerfManager.Instance, StringFormat = "Disk : {0}" };
+                var binding = new Binding(nameof(DiskInformation.DiskUsageText)) { Source = DiskInformation.Instance, StringFormat = "Disk : {0}" };
                 BindingOperations.SetBinding(diskitem, NavItem.TitleProperty, binding);
                 BindingOperations.SetBinding(diskitem, NavItem.TooltipProperty, binding);
                 NavItems.Add(diskitem);
@@ -59,7 +59,7 @@ namespace BUSK.Navigation
             if (!Exists(typeof(NetStatusPage)))
             {
                 var netitem = new NavItem(typeof(NetStatusPage)) { Icon = new FontIcon() { Glyph = BUSKGlyphs.Network } };
-                var binding = new Binding(nameof(NetPerfManager.Down)) { Source = NetPerfManager.Instance, StringFormat = "Net : {0}" };
+                var binding = new Binding(nameof(NetInformation.Down)) { Source = NetInformation.Instance, StringFormat = "Net : {0}" };
                 BindingOperations.SetBinding(netitem, NavItem.TitleProperty, binding);
                 BindingOperations.SetBinding(netitem, NavItem.TooltipProperty, binding);
                 NavItems.Add(netitem);
@@ -67,7 +67,7 @@ namespace BUSK.Navigation
             if (!Exists(typeof(RAMStatusPage)))
             {
                 var ramitem = new NavItem(typeof(RAMStatusPage)) { Icon = new FontIcon() { Glyph = BUSKGlyphs.Memory } };
-                var binding = new Binding(nameof(RAMPerfManager.RAMUsageText)) { Source = RAMPerfManager.Instance, StringFormat = "RAM : {0}" };
+                var binding = new Binding(nameof(RAMInformation.RAMUsageText)) { Source = RAMInformation.Instance, StringFormat = "RAM : {0}" };
                 BindingOperations.SetBinding(ramitem, NavItem.TitleProperty, binding);
                 BindingOperations.SetBinding(ramitem, NavItem.TooltipProperty, binding);
                 NavItems.Add(ramitem);

@@ -75,13 +75,13 @@ namespace BUSK.ViewModels
 
             var lineDown = new PerformanceSeries();
             GraphView.Series.Add(lineDown);
-            lineDown.SetBinding(PerformanceSeries.GraphValueProperty, new Binding(nameof(NetPerfManager.DownBytes)) { Source = NetPerfManager.Instance });
+            lineDown.SetBinding(PerformanceSeries.GraphValueProperty, new Binding(nameof(NetInformation.DownBytes)) { Source = NetInformation.Instance });
             lineDown.SetResourceReference(PerformanceSeries.FillProperty, "NetLineSeriesDownFill");
             lineDown.SetResourceReference(PerformanceSeries.StrokeProperty, "NetLineSeriesDownStroke");
 
             var lineUp = new PerformanceSeries() { StrokeDashArray = new DoubleCollection(new[] { 2.0, 4.0 }) };
             GraphView.Series.Add(lineUp);
-            lineUp.SetBinding(PerformanceSeries.GraphValueProperty, new Binding(nameof(NetPerfManager.UpBytes)) { Source = NetPerfManager.Instance });
+            lineUp.SetBinding(PerformanceSeries.GraphValueProperty, new Binding(nameof(NetInformation.UpBytes)) { Source = NetInformation.Instance });
             lineUp.SetResourceReference(PerformanceSeries.FillProperty, "NetLineSeriesUpFill");
             lineUp.SetResourceReference(PerformanceSeries.StrokeProperty, "NetLineSeriesUpStroke");
 
@@ -89,13 +89,13 @@ namespace BUSK.ViewModels
             var tbDown = new TextBlock() { FontSize = 12.0 };
             var tbUp = new TextBlock() { FontSize = 12.0, Margin = new Thickness(5.0, 0.0, 0.0, 0.0) };
 
-            tbDown.SetBinding(TextBlock.TextProperty, new Binding(nameof(NetPerfManager.Down)) { Source = NetPerfManager.Instance, StringFormat = "D : {0}" });
-            tbUp.SetBinding(TextBlock.TextProperty, new Binding(nameof(NetPerfManager.Up)) { Source = NetPerfManager.Instance, StringFormat = "U : {0}" });
+            tbDown.SetBinding(TextBlock.TextProperty, new Binding(nameof(NetInformation.Down)) { Source = NetInformation.Instance, StringFormat = "D : {0}" });
+            tbUp.SetBinding(TextBlock.TextProperty, new Binding(nameof(NetInformation.Up)) { Source = NetInformation.Instance, StringFormat = "U : {0}" });
             extraInfo.Children.Add(tbDown); extraInfo.Children.Add(tbUp);
 
             GraphView.AdditionalMiniViewContent = extraInfo;
 
-            NetPerfManager.Instance.NetworkInterfaceAssigned += (s, e) =>
+            NetInformation.Instance.NetworkInterfaceAssigned += (s, e) =>
             {
                 lineDown.Values.Clear();
                 lineUp.Values.Clear();
@@ -108,13 +108,13 @@ namespace BUSK.ViewModels
         private void LoadInfos()
         {
             var NIS = NetworkInterface.GetAllNetworkInterfaces();
-            int index = NetPerfManager.GetIndexOfNetInterface(NIS, NetPerfManager.Instance.CurrentNetInterface);
+            int index = NetInformation.GetIndexOfNetInterface(NIS, NetInformation.Instance.CurrentNetInterface);
             var ni = NIS[index];
             NetworkInfo = $"{ni.Name} ({ni.Description})";
-            MACAddress = NetPerfManager.GetFormattedMACAddress(ni.GetPhysicalAddress().ToString());
+            MACAddress = NetInformation.GetFormattedMACAddress(ni.GetPhysicalAddress().ToString());
             NetworkInterfaceType = ni.NetworkInterfaceType.ToString();
             IPv6 = ni.GetIPProperties().UnicastAddresses[0].Address.ToString();
-            IPv4 = NetPerfManager.GetIPv4(ni);
+            IPv4 = NetInformation.GetIPv4(ni);
         }
     }
 }

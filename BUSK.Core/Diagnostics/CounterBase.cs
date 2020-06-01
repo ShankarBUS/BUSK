@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace BUSK.Core.Diagnostics
 {
-    public abstract class PerfManagerBase : BindableBase
+    public abstract class CounterBase : BindableBase
     {
         private System.Timers.Timer Timer { get; } = new System.Timers.Timer() { Interval = CountersHandler.DefaultInterval, Enabled = false };
 
@@ -35,7 +35,7 @@ namespace BUSK.Core.Diagnostics
 
         #endregion
 
-        public PerfManagerBase()
+        public CounterBase()
         {
             Timer.Elapsed += Timer_Elapsed;
             CountersHandler.CommonCounterIntervalChanged += CountersHandler_CommonCounterIntervalChanged;
@@ -96,7 +96,7 @@ namespace BUSK.Core.Diagnostics
             if (isEnabled && wasrunning) OnRun();
         }
 
-        ~PerfManagerBase()
+        ~CounterBase()
         {
             Timer.Elapsed -= Timer_Elapsed;
             CountersHandler.CommonCounterIntervalChanged -= CountersHandler_CommonCounterIntervalChanged;

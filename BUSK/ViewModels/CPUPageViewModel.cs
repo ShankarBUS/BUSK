@@ -35,12 +35,12 @@ namespace BUSK.ViewModels
 
             var line = new PerformanceSeries();
             GraphView.Series.Add(line);
-            line.SetBinding(PerformanceSeries.GraphValueProperty, new Binding(nameof(CPUPerfManager.CPUUsage)) { Source = CPUPerfManager.Instance });
+            line.SetBinding(PerformanceSeries.GraphValueProperty, new Binding(nameof(CPUInformation.CPUUsage)) { Source = CPUInformation.Instance });
             line.SetResourceReference(PerformanceSeries.FillProperty, "CPULineSeriesFill");
             line.SetResourceReference(PerformanceSeries.StrokeProperty, "CPULineSeriesStroke");
 
             var extraInfo = new TextBlock() { Margin = new Thickness(10.0), HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Top, FontSize = 30.0 };
-            extraInfo.SetBinding(TextBlock.TextProperty, new Binding(nameof(CPUPerfManager.CPUUsageText)) { Source = CPUPerfManager.Instance });
+            extraInfo.SetBinding(TextBlock.TextProperty, new Binding(nameof(CPUInformation.CPUUsageText)) { Source = CPUInformation.Instance });
 
             GraphView.AdditionalMiniViewContent = extraInfo;
 

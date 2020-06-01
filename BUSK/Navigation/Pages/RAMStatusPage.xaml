@@ -15,8 +15,8 @@
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <DockPanel>
                 <WrapPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                    <TextBlock Text="{Binding Source={x:Static busk:RAMPerfManager.Instance}, Path=TotalRAM, StringFormat='Total RAM : {0}'}" TextAlignment="Center" Margin="20" Style="{DynamicResource SubtitleTextBlockStyle}"/>
-                    <TextBlock Text="{Binding Source={x:Static busk:RAMPerfManager.Instance}, Path=AvailableRAM, StringFormat='Available RAM : {0}'}" TextAlignment="Center" Margin="20" Style="{DynamicResource SubtitleTextBlockStyle}"/>
+                    <TextBlock Text="{Binding Source={x:Static busk:RAMInformation.Instance}, Path=TotalRAM, StringFormat='Total RAM : {0}'}" TextAlignment="Center" Margin="20" Style="{DynamicResource SubtitleTextBlockStyle}"/>
+                    <TextBlock Text="{Binding Source={x:Static busk:RAMInformation.Instance}, Path=AvailableRAM, StringFormat='Available RAM : {0}'}" TextAlignment="Center" Margin="20" Style="{DynamicResource SubtitleTextBlockStyle}"/>
                 </WrapPanel>
                 <ContentPresenter x:Name="Host" Margin="50" Content="{Binding GraphView}"/>
             </DockPanel>
@@ -24,7 +24,7 @@
         <ui:ThemeShadowChrome Grid.Row="0" Depth="20">
             <Grid Background="{DynamicResource ApplicationPageBackgroundThemeBrush}">
                 <TextBlock Text="RAM" Style="{DynamicResource TitleTextBlockStyle}" VerticalAlignment="Center" Margin="30"/>
-                <ui:ToggleSwitch IsOn="{Binding Source={x:Static busk:RAMPerfManager.Instance}, Path=IsEnabled}"
+                <ui:ToggleSwitch IsOn="{Binding Source={x:Static busk:RAMInformation.Instance}, Path=IsEnabled}"
                                  WindowChrome.IsHitTestVisibleInChrome="True" Margin="10" HorizontalAlignment="Right">
                     <ui:ToggleSwitch.OnContent>Enabled</ui:ToggleSwitch.OnContent>
                     <ui:ToggleSwitch.OffContent>Disabled</ui:ToggleSwitch.OffContent>

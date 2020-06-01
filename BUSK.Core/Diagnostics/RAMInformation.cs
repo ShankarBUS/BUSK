@@ -1,13 +1,14 @@
 ﻿using BUSK.Core.Utilities;
+using BUSK.Utilities;
 using System.Diagnostics;
 
 namespace BUSK.Core.Diagnostics
 {
-    public class RAMPerfManager : PerfManagerBase
+    public class RAMInformation : CounterBase
     {
         private PerformanceCounter memCounter = new PerformanceCounter("Memory", "Available Bytes");
 
-        public static RAMPerfManager Instance { get; internal set; }
+        public static RAMInformation Instance { get; internal set; }
 
         private bool _isinit = false;
 
@@ -79,6 +80,12 @@ namespace BUSK.Core.Diagnostics
 
         #endregion
 
+        protected override void OnRun()
+        {
+            base.OnRun();
+            SetTotalRAM();
+        }
+
         public override void Update()
         {
             var _amemb = (long)memCounter.NextValue();
@@ -94,9 +101,11 @@ namespace BUSK.Core.Diagnostics
             RAMUsageText = ((int)us).ToString() + "%";
         }
 
-        internal void SetTotalRAM(long _tmemb)
+        internal void SetTotalRAM()
         {
-            if (_tmemb < 1) return;
+            if (_isinit) return;
+
+            long _tmemb = HardwareInfo.GetPhysicalMemoryBytes();
 
             TotalRAMBytes = _tmemb;
             TotalRAM = DataConverter.FormatBytes(tmemb);

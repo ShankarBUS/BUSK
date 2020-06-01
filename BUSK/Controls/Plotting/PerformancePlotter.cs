@@ -3,7 +3,7 @@ using System;
 
 namespace BUSK.Controls.Plotting
 {
-    public class PerformancePlotter : PerfManagerBase
+    public class PerformancePlotter : CounterBase
     {
         public PerformancePlotter(Action action)
         {

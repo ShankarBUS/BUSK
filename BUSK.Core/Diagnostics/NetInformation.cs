@@ -20,7 +20,7 @@ namespace BUSK.Core.Diagnostics
         }
     }
 
-    public class NetPerfManager : PerfManagerBase
+    public class NetInformation : CounterBase
     {
         private long prevDown = 0;
 
@@ -36,7 +36,7 @@ namespace BUSK.Core.Diagnostics
 
         public event EventHandler NetworkInterfaceAssigned;
 
-        public static NetPerfManager Instance { get; internal set; }
+        public static NetInformation Instance { get; internal set; }
 
         [Flags]
         public enum Required
@@ -133,7 +133,7 @@ namespace BUSK.Core.Diagnostics
 
         #endregion
 
-        public NetPerfManager()
+        public NetInformation()
         {
             IsGlobalIntervalRespected = false;
 

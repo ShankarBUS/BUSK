@@ -17,8 +17,8 @@
             <DockPanel>
                 <Grid DockPanel.Dock="Top">
                     <TextBlock Text="{Binding NetworkInfo}" HorizontalAlignment="Left" TextAlignment="Center" Margin="20" Style="{DynamicResource SubtitleTextBlockStyle}"/>
-                    <ComboBox ItemsSource="{Binding Source={x:Static busk:NetPerfManager.Instance}, Path=NetInterfaces}"
-                              SelectedItem="{Binding Source={x:Static busk:NetPerfManager.Instance}, Path=CurrentNetInterface}"
+                    <ComboBox ItemsSource="{Binding Source={x:Static busk:NetInformation.Instance}, Path=NetInterfaces}"
+                              SelectedItem="{Binding Source={x:Static busk:NetInformation.Instance}, Path=CurrentNetInterface}"
                               VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10"/>
                 </Grid>
                 <ContentPresenter x:Name="Host" Margin="50" Content="{Binding GraphView}"/>
@@ -27,7 +27,7 @@
         <ui:ThemeShadowChrome Grid.Row="0" Depth="20">
             <Grid Background="{DynamicResource ApplicationPageBackgroundThemeBrush}">
                 <TextBlock Text="Network" Style="{DynamicResource TitleTextBlockStyle}" VerticalAlignment="Center" Margin="30"/>
-                <ui:ToggleSwitch IsOn="{Binding Source={x:Static busk:NetPerfManager.Instance}, Path=IsEnabled}"
+                <ui:ToggleSwitch IsOn="{Binding Source={x:Static busk:NetInformation.Instance}, Path=IsEnabled}"
                                  WindowChrome.IsHitTestVisibleInChrome="True" Margin="10" HorizontalAlignment="Right">
                     <ui:ToggleSwitch.OnContent>Enabled</ui:ToggleSwitch.OnContent>
                     <ui:ToggleSwitch.OffContent>Disabled</ui:ToggleSwitch.OffContent>
@@ -45,14 +45,14 @@
                         <StackPanel Orientation="Vertical">
                             <StackPanel Margin="5" Orientation="Horizontal">
                                 <Line Y1="0" Y2="15" VerticalAlignment="Center" Margin="0,0,5,0" Stroke="{DynamicResource NetLineSeriesDownStroke}" StrokeThickness="2" StrokeDashArray="1" />
-                                <TextBlock Text="{Binding Source={x:Static busk:NetPerfManager.Instance}, Path=Up, StringFormat='Send : {0}'}" />
+                                <TextBlock Text="{Binding Source={x:Static busk:NetInformation.Instance}, Path=Up, StringFormat='Send : {0}'}" />
                             </StackPanel>
                             <StackPanel Margin="5" Orientation="Horizontal">
                                 <Line Y1="0" Y2="15" VerticalAlignment="Center" Margin="0,0,5,0" Stroke="{DynamicResource NetLineSeriesUpStroke}" StrokeThickness="2" />
-                                <TextBlock Text="{Binding Source={x:Static busk:NetPerfManager.Instance}, Path=Down, StringFormat='Receive : {0}'}" />
+                                <TextBlock Text="{Binding Source={x:Static busk:NetInformation.Instance}, Path=Down, StringFormat='Receive : {0}'}" />
                             </StackPanel>
-                            <TextBlock Margin="5" Text="{Binding Source={x:Static busk:NetPerfManager.Instance}, Path=TotalUp, StringFormat='Total Sent : {0}'}" />
-                            <TextBlock Margin="5" Text="{Binding Source={x:Static busk:NetPerfManager.Instance}, Path=TotalDown, StringFormat='Total Received : {0}'}"/>
+                            <TextBlock Margin="5" Text="{Binding Source={x:Static busk:NetInformation.Instance}, Path=TotalUp, StringFormat='Total Sent : {0}'}" />
+                            <TextBlock Margin="5" Text="{Binding Source={x:Static busk:NetInformation.Instance}, Path=TotalDown, StringFormat='Total Received : {0}'}"/>
                         </StackPanel>
                     </Border>
                 </Grid>

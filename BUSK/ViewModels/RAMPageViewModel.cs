@@ -32,12 +32,12 @@ namespace BUSK.ViewModels
 
             var line = new PerformanceSeries();
             GraphView.Series.Add(line);
-            line.SetBinding(PerformanceSeries.GraphValueProperty, new Binding(nameof(RAMPerfManager.RAMUsage)) { Source = RAMPerfManager.Instance });
+            line.SetBinding(PerformanceSeries.GraphValueProperty, new Binding(nameof(RAMInformation.RAMUsage)) { Source = RAMInformation.Instance });
             line.SetResourceReference(PerformanceSeries.FillProperty, "RAMLineSeriesFill");
             line.SetResourceReference(PerformanceSeries.StrokeProperty, "RAMLineSeriesStroke");
 
             var extraInfo = new TextBlock() { Margin = new Thickness(10.0), HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Top, FontSize = 30.0 };
-            extraInfo.SetBinding(TextBlock.TextProperty, new Binding(nameof(RAMPerfManager.RAMUsageText)) { Source = RAMPerfManager.Instance });
+            extraInfo.SetBinding(TextBlock.TextProperty, new Binding(nameof(RAMInformation.RAMUsageText)) { Source = RAMInformation.Instance });
 
             GraphView.AdditionalMiniViewContent = extraInfo;
         }

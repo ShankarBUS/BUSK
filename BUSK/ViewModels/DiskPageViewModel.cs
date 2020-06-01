@@ -49,16 +49,16 @@ namespace BUSK.ViewModels
 
             var line = new PerformanceSeries();
             GraphView.Series.Add(line);
-            line.SetBinding(PerformanceSeries.GraphValueProperty, new Binding(nameof(DiskPerfManager.DiskUsage)) { Source = DiskPerfManager.Instance });
+            line.SetBinding(PerformanceSeries.GraphValueProperty, new Binding(nameof(DiskInformation.DiskUsage)) { Source = DiskInformation.Instance });
             line.SetResourceReference(PerformanceSeries.FillProperty, "DiskLineSeriesFill");
             line.SetResourceReference(PerformanceSeries.StrokeProperty, "DiskLineSeriesStroke");
 
             var extraInfo = new TextBlock() { Margin = new Thickness(10.0), HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Top, FontSize = 30.0 };
-            extraInfo.SetBinding(TextBlock.TextProperty, new Binding(nameof(DiskPerfManager.DiskUsageText)) { Source = DiskPerfManager.Instance });
+            extraInfo.SetBinding(TextBlock.TextProperty, new Binding(nameof(DiskInformation.DiskUsageText)) { Source = DiskInformation.Instance });
 
             GraphView.AdditionalMiniViewContent = extraInfo;
 
-            DiskPerfManager.Instance.DiskCounterAssigned += (s, e) =>
+            DiskInformation.Instance.DiskCounterAssigned += (s, e) =>
             {
                 line.Values.Clear();
                 var driveInfos = DriveInfo.GetDrives();
@@ -67,10 +67,10 @@ namespace BUSK.ViewModels
                     if (driveInfo.IsReady)
                     {
                         var driveletter = driveInfo.Name.Remove(1);
-                        if (DiskPerfManager.Instance.CurrentDiskName.Contains(driveletter))
+                        if (DiskInformation.Instance.CurrentDiskName.Contains(driveletter))
                         {
                             DriveType = driveInfo.DriveType;
-                            DiskInfo = $"{DiskPerfManager.Instance.CurrentDiskName} ({DriveType})";
+                            DiskInfo = $"{DiskInformation.Instance.CurrentDiskName} ({DriveType})";
                         }
                     }
                 }

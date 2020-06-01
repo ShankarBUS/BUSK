@@ -21,7 +21,7 @@
         <ui:ThemeShadowChrome Grid.Row="0" Depth="20">
             <Grid Background="{DynamicResource ApplicationPageBackgroundThemeBrush}">
                 <TextBlock Text="CPU" Style="{DynamicResource TitleTextBlockStyle}" VerticalAlignment="Center" Margin="30"/>
-                <ui:ToggleSwitch IsOn="{Binding Source={x:Static busk:CPUPerfManager.Instance}, Path=IsEnabled}"
+                <ui:ToggleSwitch IsOn="{Binding Source={x:Static busk:CPUInformation.Instance}, Path=IsEnabled}"
                                  WindowChrome.IsHitTestVisibleInChrome="True" Margin="10" HorizontalAlignment="Right">
                     <ui:ToggleSwitch.OnContent>Enabled</ui:ToggleSwitch.OnContent>
                     <ui:ToggleSwitch.OffContent>Disabled</ui:ToggleSwitch.OffContent>

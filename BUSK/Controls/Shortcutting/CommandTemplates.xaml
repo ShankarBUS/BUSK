@@ -26,7 +26,7 @@
                     <WrapPanel Margin="20,0,0,20" Orientation="Horizontal">
                         <ComboBox Margin="10"
                                   ItemsSource="{Binding Source={StaticResource CounterStates}}" SelectedItem="{Binding CounterState}"
-                                  ui:ControlHelper.Header="Select CounteState :"/>
+                                  ui:ControlHelper.Header="Select CounterState :"/>
                         <ui:NumberBox Margin="10" Value="{Binding Delay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SpinButtonPlacementMode="Inline" Minimum="1"
                                       ui:ControlHelper.Header="Delay (in ms) :" ui:ControlHelper.PlaceholderText="The delay time in milliseconds"/>
                     </WrapPanel>

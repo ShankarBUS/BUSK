@@ -18,8 +18,8 @@
             <DockPanel>
                 <Grid DockPanel.Dock="Top">
                     <TextBlock Text="{Binding DiskInfo}" HorizontalAlignment="Left" TextAlignment="Center" Margin="20" Style="{DynamicResource SubtitleTextBlockStyle}"/>
-                    <ComboBox ItemsSource="{Binding Source={x:Static busk:DiskPerfManager.Instance}, Path=DiskCounters}"
-                              SelectedItem="{Binding Source={x:Static busk:DiskPerfManager.Instance}, Path=CurrentDiskName}"
+                    <ComboBox ItemsSource="{Binding Source={x:Static busk:DiskInformation.Instance}, Path=DiskCounters}"
+                              SelectedItem="{Binding Source={x:Static busk:DiskInformation.Instance}, Path=CurrentDiskName}"
                               VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10"/>
                 </Grid>
                 <ContentPresenter x:Name="Host" Margin="50" Content="{Binding GraphView}"/>
@@ -28,7 +28,7 @@
         <ui:ThemeShadowChrome Grid.Row="0" Depth="20">
             <Grid Background="{DynamicResource ApplicationPageBackgroundThemeBrush}">
                 <TextBlock Text="Disk" Style="{DynamicResource TitleTextBlockStyle}" VerticalAlignment="Center" Margin="30"/>
-                <ui:ToggleSwitch IsOn="{Binding Source={x:Static busk:DiskPerfManager.Instance}, Path=IsEnabled}"
+                <ui:ToggleSwitch IsOn="{Binding Source={x:Static busk:DiskInformation.Instance}, Path=IsEnabled}"
                                  WindowChrome.IsHitTestVisibleInChrome="True" Margin="10" HorizontalAlignment="Right">
                     <ui:ToggleSwitch.OnContent>Enabled</ui:ToggleSwitch.OnContent>
                     <ui:ToggleSwitch.OffContent>Disabled</ui:ToggleSwitch.OffContent>
