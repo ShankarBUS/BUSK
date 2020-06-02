@@ -3,7 +3,7 @@ using System.Management;
 
 namespace BUSK.Utilities
 {
-    public static class HardwareInfo
+    internal static class HardwareInfo
     {
         public static string GetAccountName()
         {
@@ -143,7 +143,7 @@ namespace BUSK.Utilities
             {
                 if (cpuClockSpeed == 0)
                 {
-                    cpuClockSpeed = Convert.ToInt32(obj.Properties["CurrentClockSpeed"].Value.ToString());
+                    cpuClockSpeed = (int)obj.Properties["CurrentClockSpeed"].Value;
                 }
             }
 
@@ -173,7 +173,7 @@ namespace BUSK.Utilities
             {
                 foreach (ManagementObject mo in mc.GetInstances())
                 {
-                    GHz = 0.001 * (uint)mo.Properties["CurrentClockSpeed"].Value;
+                    GHz = (uint)mo.Properties["CurrentClockSpeed"].Value / 1000.0;
                     break;
                 }
             }

@@ -17,9 +17,9 @@ namespace BUSK.Controls.Plotting
 
         public PerformanceSeries()
         {
-            LineSmoothness = 0;
-            PointGeometry = null;
-            StrokeThickness = 2;
+            LineSmoothness = 0.0;
+            PointGeometry = Geometry.Empty;
+            StrokeThickness = 2.0;
             Values = values;
         }
 
