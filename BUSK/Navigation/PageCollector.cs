@@ -48,6 +48,14 @@ namespace BUSK.Navigation
                 BindingOperations.SetBinding(cpuitem, NavItem.TooltipProperty, binding);
                 NavItems.Add(cpuitem);
             }
+            if (!Exists(typeof(RAMStatusPage)))
+            {
+                var ramitem = new NavItem(typeof(RAMStatusPage)) { Icon = new FontIcon() { Glyph = BUSKGlyphs.Memory } };
+                var binding = new Binding(nameof(RAMInformation.RAMUsageText)) { Source = RAMInformation.Instance, StringFormat = "RAM : {0}" };
+                BindingOperations.SetBinding(ramitem, NavItem.TitleProperty, binding);
+                BindingOperations.SetBinding(ramitem, NavItem.TooltipProperty, binding);
+                NavItems.Add(ramitem);
+            }
             if (!Exists(typeof(DiskStatusPage)))
             {
                 var diskitem = new NavItem(typeof(DiskStatusPage)) { Icon = new FontIcon() { Glyph = BUSKGlyphs.HardDrive } };
@@ -63,14 +71,6 @@ namespace BUSK.Navigation
                 BindingOperations.SetBinding(netitem, NavItem.TitleProperty, binding);
                 BindingOperations.SetBinding(netitem, NavItem.TooltipProperty, binding);
                 NavItems.Add(netitem);
-            }
-            if (!Exists(typeof(RAMStatusPage)))
-            {
-                var ramitem = new NavItem(typeof(RAMStatusPage)) { Icon = new FontIcon() { Glyph = BUSKGlyphs.Memory } };
-                var binding = new Binding(nameof(RAMInformation.RAMUsageText)) { Source = RAMInformation.Instance, StringFormat = "RAM : {0}" };
-                BindingOperations.SetBinding(ramitem, NavItem.TitleProperty, binding);
-                BindingOperations.SetBinding(ramitem, NavItem.TooltipProperty, binding);
-                NavItems.Add(ramitem);
             }
 
             NavItems.Add(new Separator());

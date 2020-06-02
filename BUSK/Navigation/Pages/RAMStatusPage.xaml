@@ -6,7 +6,7 @@
       xmlns:busk="http://schemas.busk.com/2020" xmlns:ui="http://schemas.modernwpf.com/2019" xmlns:vm="clr-namespace:BUSK.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800" DataContext="{x:Static vm:RAMPageViewModel.Instance}"
-      Title="CPU Status">
+      Title="RAM Status">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BUSK.Controls" xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d" Height="100" Width="200"  MaxWidth="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Width}" MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height}"
-        WindowStyle="None" MinHeight="100" MinWidth="200" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" Topmost="True" Focusable="False" Background="Transparent" AllowsTransparency="True" ShowActivated="False" ShowInTaskbar="False">
+        WindowStyle="None" MinHeight="130" MinWidth="200" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" Topmost="True" Focusable="False" Background="Transparent" AllowsTransparency="True" ShowActivated="False" ShowInTaskbar="False">
     <WindowChrome.WindowChrome>
         <WindowChrome  CaptionHeight="0" GlassFrameThickness="0" CornerRadius="0" ResizeBorderThickness="6,2,6,10" UseAeroCaptionButtons="False" />
     </WindowChrome.WindowChrome>

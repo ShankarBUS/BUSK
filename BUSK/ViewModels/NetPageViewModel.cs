@@ -94,6 +94,7 @@ namespace BUSK.ViewModels
             extraInfo.Children.Add(tbDown); extraInfo.Children.Add(tbUp);
 
             GraphView.AdditionalMiniViewContent = extraInfo;
+            GraphView.TitleBlock.Text = "Network transfer rate";
 
             NetInformation.Instance.NetworkInterfaceAssigned += (s, e) =>
             {
@@ -113,7 +114,7 @@ namespace BUSK.ViewModels
             NetworkInfo = $"{ni.Name} ({ni.Description})";
             MACAddress = NetInformation.GetFormattedMACAddress(ni.GetPhysicalAddress().ToString());
             NetworkInterfaceType = ni.NetworkInterfaceType.ToString();
-            IPv6 = ni.GetIPProperties().UnicastAddresses[0].Address.ToString();
+            IPv6 = NetInformation.GetIPv6(ni);
             IPv4 = NetInformation.GetIPv4(ni);
         }
     }

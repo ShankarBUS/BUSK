@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Media;
 using BUSK.Charting;
 using BUSK.Charting.Configurations;
 using BUSK.Charting.WPF;

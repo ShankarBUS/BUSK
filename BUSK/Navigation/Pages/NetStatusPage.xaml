@@ -6,7 +6,7 @@
       xmlns:busk="http://schemas.busk.com/2020" xmlns:ui="http://schemas.modernwpf.com/2019" xmlns:vm="clr-namespace:BUSK.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800" DataContext="{x:Static vm:NetPageViewModel.Instance}"
-      Title="CPU Status">
+      Title="Network Status">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
@@ -37,37 +37,43 @@
                 </Button>
             </Grid>
         </ui:ThemeShadowChrome>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" Grid.Row="2" Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}">
-            <StackPanel Orientation="Horizontal">
-                <Grid Margin="10,0,10,0">
-                    <TextBlock Margin="10,10,0,0">Statistics</TextBlock>
-                    <Border Margin="20,35,5,15" Padding="10" CornerRadius="{DynamicResource OverlayCornerRadius}" Background="{DynamicResource ApplicationPageBackgroundThemeBrush}">
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel Margin="5" Orientation="Horizontal">
-                                <Line Y1="0" Y2="15" VerticalAlignment="Center" Margin="0,0,5,0" Stroke="{DynamicResource NetLineSeriesDownStroke}" StrokeThickness="2" StrokeDashArray="1" />
-                                <TextBlock Text="{Binding Source={x:Static busk:NetInformation.Instance}, Path=Up, StringFormat='Send : {0}'}" />
+        <Expander Header="More Info" Grid.Row="2" ExpandDirection="Up" Padding="10" IsExpanded="True" Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" Margin="-10">
+                <StackPanel Orientation="Horizontal">
+                    <Grid Margin="10,0,10,0">
+                        <TextBlock Margin="10,10,0,0">Statistics</TextBlock>
+                        <Border Margin="20,35,5,15" Padding="10" CornerRadius="{DynamicResource OverlayCornerRadius}" Background="{DynamicResource ApplicationPageBackgroundThemeBrush}">
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Margin="5" Orientation="Horizontal">
+                                    <Line Y1="0" Y2="43" VerticalAlignment="Center" Stroke="{DynamicResource NetLineSeriesUpStroke}" StrokeThickness="2" StrokeDashArray="2 4"/>
+                                    <StackPanel Margin="10,0">
+                                        <TextBlock Style="{DynamicResource CaptionTextBlockStyle}" Text="Send"/>
+                                        <TextBlock Style="{DynamicResource SubtitleTextBlockStyle}" Text="{Binding Source={x:Static busk:NetInformation.Instance}, Path=Up}"/>
+                                    </StackPanel>
+                                    <Line Y1="0" Y2="43" VerticalAlignment="Center" Stroke="{DynamicResource NetLineSeriesDownStroke}" StrokeThickness="2"/>
+                                    <StackPanel Margin="10,0">
+                                        <TextBlock Style="{DynamicResource CaptionTextBlockStyle}" Text="Receive"/>
+                                        <TextBlock Style="{DynamicResource SubtitleTextBlockStyle}" Text="{Binding Source={x:Static busk:NetInformation.Instance}, Path=Down}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <TextBlock Margin="5" Text="{Binding Source={x:Static busk:NetInformation.Instance}, Path=TotalUp, StringFormat='Total Sent : {0}'}"/>
+                                <TextBlock Margin="5" Text="{Binding Source={x:Static busk:NetInformation.Instance}, Path=TotalDown, StringFormat='Total Received : {0}'}"/>
                             </StackPanel>
-                            <StackPanel Margin="5" Orientation="Horizontal">
-                                <Line Y1="0" Y2="15" VerticalAlignment="Center" Margin="0,0,5,0" Stroke="{DynamicResource NetLineSeriesUpStroke}" StrokeThickness="2" />
-                                <TextBlock Text="{Binding Source={x:Static busk:NetInformation.Instance}, Path=Down, StringFormat='Receive : {0}'}" />
+                        </Border>
+                    </Grid>
+                    <Grid Margin="0,0,10,0">
+                        <TextBlock Margin="10,10,0,0">Properties</TextBlock>
+                        <Border Margin="20,35,5,15" Padding="10" CornerRadius="{DynamicResource OverlayCornerRadius}" Background="{DynamicResource ApplicationPageBackgroundThemeBrush}">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Margin="5" Text="{Binding Path=MACAddress, StringFormat='MAC Address : {0}'}" />
+                                <TextBlock Margin="5" Text="{Binding Path=NetworkInterfaceType, StringFormat='Connection Type : {0}'}" />
+                                <TextBlock Margin="5" Text="{Binding Path=IPv4, StringFormat='IPv4 Address : {0}'}" />
+                                <TextBlock Margin="5" Text="{Binding Path=IPv6, StringFormat='IPv6 Address : {0}'}" />
                             </StackPanel>
-                            <TextBlock Margin="5" Text="{Binding Source={x:Static busk:NetInformation.Instance}, Path=TotalUp, StringFormat='Total Sent : {0}'}" />
-                            <TextBlock Margin="5" Text="{Binding Source={x:Static busk:NetInformation.Instance}, Path=TotalDown, StringFormat='Total Received : {0}'}"/>
-                        </StackPanel>
-                    </Border>
-                </Grid>
-                <Grid Margin="0,0,10,0">
-                    <TextBlock Margin="10,10,0,0">Properties</TextBlock>
-                    <Border Margin="20,35,5,15" Padding="10" CornerRadius="{DynamicResource OverlayCornerRadius}" Background="{DynamicResource ApplicationPageBackgroundThemeBrush}">
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Margin="5" Text="{Binding Path=MACAddress, StringFormat='MAC Address : {0}'}" />
-                            <TextBlock Margin="5" Text="{Binding Path=NetworkInterfaceType, StringFormat='Connection Type : {0}'}" />
-                            <TextBlock Margin="5" Text="{Binding Path=IPv4, StringFormat='IPv4 Address : {0}'}" />
-                            <TextBlock Margin="5" Text="{Binding Path=IPv6, StringFormat='IPv6 Address : {0}'}" />
-                        </StackPanel>
-                    </Border>
-                </Grid>
-            </StackPanel>
-        </ScrollViewer>
+                        </Border>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+        </Expander>
     </Grid>
 </Page>

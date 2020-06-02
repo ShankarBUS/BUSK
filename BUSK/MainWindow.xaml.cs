@@ -1,4 +1,5 @@
-﻿using BUSK.Core;
+﻿using BUSK.Controls.Plotting;
+using BUSK.Core;
 using BUSK.Core.Diagnostics;
 using BUSK.Core.Extensibility;
 using BUSK.Core.Shortcutting;

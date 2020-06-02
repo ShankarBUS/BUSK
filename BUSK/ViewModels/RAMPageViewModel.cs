@@ -40,6 +40,7 @@ namespace BUSK.ViewModels
             extraInfo.SetBinding(TextBlock.TextProperty, new Binding(nameof(RAMInformation.RAMUsageText)) { Source = RAMInformation.Instance });
 
             GraphView.AdditionalMiniViewContent = extraInfo;
+            GraphView.TitleBlock.Text = "% Utilization";
         }
     }
 }

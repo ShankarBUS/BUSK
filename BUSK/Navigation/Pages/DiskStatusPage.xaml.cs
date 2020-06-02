@@ -14,6 +14,7 @@ namespace BUSK.Navigation.Pages
         private void DiskStatusPage_Unloaded(object sender, RoutedEventArgs e)
         {
             Host.Content = null;
+            Host2.Content = null;
         }
     }
 }

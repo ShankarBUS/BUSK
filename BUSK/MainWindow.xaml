@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:busk="http://schemas.busk.com/2020" xmlns:ui="http://schemas.modernwpf.com/2019" xmlns:controls="clr-namespace:BUSK.Controls" xmlns:plot="clr-namespace:BUSK.Controls.Plotting" xmlns:system="clr-namespace:System;assembly=System.Runtime"
+        xmlns:busk="http://schemas.busk.com/2020" xmlns:ui="http://schemas.modernwpf.com/2019" xmlns:bcw="clr-namespace:BUSK.Charting.WPF;assembly=BUSK.Charting.WPF"
+        xmlns:controls="clr-namespace:BUSK.Controls" xmlns:plot="clr-namespace:BUSK.Controls.Plotting" xmlns:system="clr-namespace:System;assembly=System.Runtime"
         mc:Ignorable="d" ui:WindowHelper.UseModernWindowStyle="True"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
@@ -28,7 +29,6 @@
                 <TextBlock Text="{Binding Source={x:Static busk:DiskInformation.Instance}, Path=DiskUsageText}"/>
                 <TextBlock Text="{Binding Source={x:Static busk:NetInformation.Instance}, Path=Down}"/>
                 <TextBlock Text="{Binding Source={x:Static busk:RAMInformation.Instance}, Path=RAMUsageText}"/>
-                <Image x:Name="test"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

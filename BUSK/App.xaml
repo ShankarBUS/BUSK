@@ -23,6 +23,14 @@
                                 <GradientStop Color="#CC9ACD32"/>
                             </LinearGradientBrush>
                             <SolidColorBrush x:Key="DiskLineSeriesStroke" Color="#FF6C9023"/>
+                            <LinearGradientBrush x:Key="DiskLineSeriesReadFill" EndPoint="0,1" StartPoint="0,0">
+                                <GradientStop Color="#00FFFFFF" Offset="1"/>
+                                <GradientStop Color="#AAB8DC6F" Offset="0.5"/>
+                                <GradientStop Color="#CC9ACD32"/>
+                            </LinearGradientBrush>
+                            <SolidColorBrush x:Key="DiskLineSeriesReadStroke" Color="#FF6C9023"/>
+                            <SolidColorBrush x:Key="DiskLineSeriesWriteFill" Color="Transparent"/>
+                            <SolidColorBrush x:Key="DiskLineSeriesWriteStroke" Color="#FF6C9023"/>
 
                             <!--Net Page Resources-->
                             <LinearGradientBrush x:Key="NetLineSeriesDownFill" EndPoint="0,1" StartPoint="0,0">
@@ -59,7 +67,14 @@
                                 <GradientStop Color="#CC9ACD32"/>
                             </LinearGradientBrush>
                             <SolidColorBrush x:Key="DiskLineSeriesStroke" Color="#FFB8DC6F"/>
-
+                            <LinearGradientBrush x:Key="DiskLineSeriesReadFill" EndPoint="0,1" StartPoint="0,0">
+                                <GradientStop Color="#00000000" Offset="1"/>
+                                <GradientStop Color="#AA6C9023" Offset="0.5"/>
+                                <GradientStop Color="#CC9ACD32"/>
+                            </LinearGradientBrush>
+                            <SolidColorBrush x:Key="DiskLineSeriesReadStroke" Color="#FFB8DC6F"/>
+                            <SolidColorBrush x:Key="DiskLineSeriesWriteFill" Color="Transparent"/>
+                            <SolidColorBrush x:Key="DiskLineSeriesWriteStroke" Color="#FFB8DC6F"/>
                             <!--Net Page Resources-->
                             <LinearGradientBrush x:Key="NetLineSeriesDownFill" EndPoint="0,1" StartPoint="0,0">
                                 <GradientStop Color="#00000000" Offset="1" />

@@ -9,7 +9,11 @@ namespace BUSK.Core.Diagnostics
 {
     public class DiskInformation : CounterBase
     {
-        private PerformanceCounter disk;
+        private PerformanceCounter disktime;
+
+        private PerformanceCounter diskreads;
+
+        private PerformanceCounter diskwrites;
 
         public event EventHandler DiskCountersChanged;
 
@@ -37,6 +41,38 @@ namespace BUSK.Core.Diagnostics
             private set { SetPropertyValue(ref dt, value); }
         }
 
+        private string read;
+
+        public string Read
+        {
+            get { return read; }
+            private set { SetPropertyValue(ref read, value); }
+        }
+
+        private double readBytes;
+
+        public double ReadBytes
+        {
+            get { return readBytes; }
+            private set { SetPropertyValue(ref readBytes, value); }
+        }
+
+        private string write;
+
+        public string Write
+        {
+            get { return write; }
+            private set { SetPropertyValue(ref write, value); }
+        }
+
+        private double writeBytes;
+
+        public double WriteBytes
+        {
+            get { return writeBytes; }
+            private set { SetPropertyValue(ref writeBytes, value); }
+        }
+
         private string currentDiskName = "";
 
         public string CurrentDiskName
@@ -60,19 +96,38 @@ namespace BUSK.Core.Diagnostics
 
         private void AssignCurrentDiskCounter(string instancename)
         {
-            disk = new PerformanceCounter("PhysicalDisk", "% Disk Time", instancename);
+            disktime = new PerformanceCounter("PhysicalDisk", "% Disk Time", instancename);
+            diskreads = new PerformanceCounter("PhysicalDisk", "Disk Read Bytes/sec", instancename);
+            diskwrites = new PerformanceCounter("PhysicalDisk", "Disk Write Bytes/sec", instancename);
             DiskCounterAssigned?.Invoke(this, null);
         }
 
         public override void Update()
         {
-            if (disk == null) { DiskUsage = 0; DiskUsageText = "0%"; return; }
+            if (disktime == null || diskreads == null || diskwrites == null)
+            {
+                DiskUsage = 0;
+                DiskUsageText = "0%";
+                ReadBytes = 0;
+                Read = "";
+                WriteBytes = 0;
+                Write = "";
+                return;
+            }
             try
             {
-                var _ = (double)disk.NextValue();
-                DiskUsage = Math.Min(_, 100);
+                var activetime = Math.Min((double)disktime.NextValue(), 100);
+                DiskUsage = activetime;
+                DiskUsageText = ((int)disku).ToString() + "%";
+
+                var readspeed = Math.Max((double)diskreads.NextValue(), 0);
+                ReadBytes = readspeed;
+                Read = DataConverter.FormatBytes((long)readspeed) + "/s";
+
+                var writespeed = Math.Max((double)diskwrites.NextValue(), 0);
+                WriteBytes = writespeed;
+                Write = DataConverter.FormatBytes((long)writespeed) + "/s";
             } catch { }
-            DiskUsageText = ((int)disku).ToString()  + "%";
         }
 
         private void LoadDiskCounters()
@@ -116,7 +171,7 @@ namespace BUSK.Core.Diagnostics
 
             toAdd.Clear(); toAdd = null; toRemove.Clear(); toRemove = null;
 
-            if (disk == null && DiskCounters.Count > 0)
+            if (disktime == null && DiskCounters.Count > 0)
             {
                 CurrentDiskName = DiskCounters[0];
 

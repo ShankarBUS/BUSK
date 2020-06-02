@@ -203,6 +203,20 @@ namespace BUSK.Core.Diagnostics
             return o;
         }
 
+        public static string GetIPv6(NetworkInterface networkInterface)
+        {
+            var ips = networkInterface.GetIPProperties().UnicastAddresses;
+            var o = ips[0].Address.ToString();
+            foreach (var IpInfo in ips)
+            {
+                if (IpInfo.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                {
+                    o = IpInfo.Address.ToString();
+                }
+            }
+            return o;
+        }
+
         private void AssignCurrentNetworkInterface(NetInterface netInterface)
         {
             var NIS = NetworkInterface.GetAllNetworkInterfaces();

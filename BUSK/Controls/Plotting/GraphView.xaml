@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:plot="clr-namespace:BUSK.Controls.Plotting"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" MinHeight="100" MinWidth="200">
+             d:DesignHeight="450" d:DesignWidth="800" MinHeight="130" MinWidth="200">
     <Grid>
         <Grid x:FieldModifier="private" x:Name="FallbackContent" Visibility="Collapsed">
             <Rectangle Stroke="{DynamicResource SystemControlBackgroundBaseMediumBrush}" RadiusX="4" RadiusY="4" StrokeDashArray="2" StrokeThickness="2"/>
@@ -13,8 +13,13 @@
         </Grid>
         <Border x:FieldModifier="private" x:Name="GraphContentHost">
             <Grid x:FieldModifier="private" x:Name="GraphContent">
-                <plot:PerformanceChart x:Name="Chart" FontSize="{StaticResource ControlContentThemeFontSize}"/>
-                <Border x:FieldModifier="private" x:Name="AdditionalContentHost" Visibility="Collapsed"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="TitleBlock" Style="{DynamicResource CaptionTextBlockStyle}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5"/>
+                <plot:PerformanceChart x:Name="Chart" Grid.Row="1" FontSize="{StaticResource ControlContentThemeFontSize}"/>
+                <Border x:FieldModifier="private" x:Name="AdditionalContentHost" Grid.RowSpan="2" Visibility="Collapsed"/>
             </Grid>
         </Border>
     </Grid>

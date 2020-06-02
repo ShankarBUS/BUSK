@@ -7,7 +7,7 @@
       xmlns:controls="clr-namespace:BUSK.Controls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800" DataContext="{x:Static vm:DiskPageViewModel.Instance}"
-      Title="CPU Status">
+      Title="Disk Status">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
@@ -22,6 +22,26 @@
                               SelectedItem="{Binding Source={x:Static busk:DiskInformation.Instance}, Path=CurrentDiskName}"
                               VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10"/>
                 </Grid>
+                <Expander DockPanel.Dock="Bottom" Header="More Info" Padding="10" IsExpanded="False">
+                    <StackPanel Margin="-10">
+                        <ContentPresenter x:Name="Host2" Margin="50,10" Content="{Binding GraphView2}"/>
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10">
+                            <TextBlock Margin="5" TextAlignment="Center" Text="{Binding Source={x:Static busk:DiskInformation.Instance}, Path=DiskUsageText, StringFormat='Active time : {0}'}" />
+                            <StackPanel Margin="5" Orientation="Horizontal">
+                                <Line Y1="0" Y2="43" VerticalAlignment="Center" Stroke="{DynamicResource DiskLineSeriesReadStroke}" StrokeThickness="2"/>
+                                <StackPanel Margin="10,0">
+                                    <TextBlock Style="{DynamicResource CaptionTextBlockStyle}" Text="Read"/>
+                                    <TextBlock Style="{DynamicResource SubtitleTextBlockStyle}" Text="{Binding Source={x:Static busk:DiskInformation.Instance}, Path=Read}" />
+                                </StackPanel>
+                                <Line Y1="0" Y2="43" VerticalAlignment="Center" Stroke="{DynamicResource DiskLineSeriesWriteStroke}" StrokeThickness="2" StrokeDashArray="2 4"/>
+                                <StackPanel Margin="10,0">
+                                    <TextBlock Style="{DynamicResource CaptionTextBlockStyle}" Text="Write"/>
+                                    <TextBlock Style="{DynamicResource SubtitleTextBlockStyle}" Text="{Binding Source={x:Static busk:DiskInformation.Instance}, Path=Write}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Expander>
                 <ContentPresenter x:Name="Host" Margin="50" Content="{Binding GraphView}"/>
             </DockPanel>
         </ScrollViewer>
@@ -38,6 +58,8 @@
                 </Button>
             </Grid>
         </ui:ThemeShadowChrome>
-        <controls:DiskItemsControl Grid.Row="2"/>
+        <Expander Header="Disk drives" Grid.Row="2" ExpandDirection="Up" Padding="10" IsExpanded="True" Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}">
+            <controls:DiskItemsControl Margin="-10"/>
+        </Expander>
     </Grid>
 </Page>

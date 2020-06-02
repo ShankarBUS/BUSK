@@ -4,7 +4,7 @@ namespace BUSK.Core.Diagnostics
 {
     public class CPUInformation : CounterBase
     {
-        private PerformanceCounter cpu = new PerformanceCounter("Processor", "% Idle Time", "_Total");
+        private PerformanceCounter cpu = new PerformanceCounter("Processor", "% Processor Time", "_Total");
 
         public static CPUInformation Instance { get; internal set; }
 
@@ -30,7 +30,7 @@ namespace BUSK.Core.Diagnostics
 
         public override void Update()
         {
-            CPUUsage = 100.0 - cpu.NextValue();
+            CPUUsage = cpu.NextValue();
             CPUUsageText = ((int)cpuu).ToString()  + "%";
         }
     }
