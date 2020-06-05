@@ -1,4 +1,5 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<ResourceDictionary x:Class="BUSK.Controls.Shortcutting.CommandTemplates"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:System="clr-namespace:System;assembly=System.Runtime"
                     xmlns:Diagnostics="clr-namespace:System.Diagnostics;assembly=System"
@@ -101,7 +102,8 @@
                     </Grid>
                     <TextBlock Margin="10" DockPanel.Dock="Top" Style="{DynamicResource SubtitleTextBlockStyle}" Text="Process Start Command"/>
                     <WrapPanel Margin="20,0,0,20" Orientation="Horizontal">
-                        <TextBox Margin="10" Text="{Binding Target, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        <TextBox AllowDrop="True" PreviewDragOver="PSTextBox_PreviewDragOver" DragOver="FileDragOver" Drop="FileDrop"
+                                 Margin="10" Text="{Binding Target, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  ui:ControlHelper.Header="Target :" ui:ControlHelper.PlaceholderText="The target path"/>
                         <TextBox Margin="10" Text="{Binding Arguments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  ui:ControlHelper.Header="Arguments :" ui:ControlHelper.PlaceholderText="The argument to pass"/>

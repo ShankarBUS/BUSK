@@ -11,11 +11,27 @@ namespace BUSK
 {
 	public partial class SettingsWindow : Window
 	{
-		public static SettingsWindow Instance { get; set; }
+		private static SettingsWindow instance;
+
+		public static SettingsWindow Instance 
+		{
+			get 
+			{
+				if (instance == null) instance = new SettingsWindow();
+				return instance;
+			}
+			set 
+			{
+				instance.Closing -= instance.WindowClosing;
+				instance = value;
+			}
+		}
 
 		public SettingsWindow()
 		{
 			InitializeComponent();
+
+			Closing += WindowClosing;
 
 			ContentFrame.Navigated += OnNavigated;
 
@@ -28,6 +44,14 @@ namespace BUSK
 					BackRequested();
 				}
 			};
+		}
+
+		private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			if (SettingsWindow.Instance == this)
+			{
+				SettingsWindow.Instance = null;
+			}
 		}
 
 		private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)

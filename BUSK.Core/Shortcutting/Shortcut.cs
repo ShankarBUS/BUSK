@@ -248,8 +248,9 @@ namespace BUSK.Core.Shortcutting
             backupCommands = new List<Command>();
             foreach (Command command in Commands)
             {
-                command.Owner = null;
-                backupCommands.Add(command.Clone());
+                var newCommand = command.Clone();
+                newCommand.Owner = null;
+                backupCommands.Add(newCommand);
             }
             backupHotkey = Hotkey.Clone();
         }

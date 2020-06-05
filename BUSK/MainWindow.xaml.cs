@@ -1,5 +1,4 @@
-﻿using BUSK.Controls.Plotting;
-using BUSK.Core;
+﻿using BUSK.Core;
 using BUSK.Core.Diagnostics;
 using BUSK.Core.Extensibility;
 using BUSK.Core.Shortcutting;
@@ -41,9 +40,6 @@ namespace BUSK
 
             PageCollector.Instance = new PageCollector();
             PageCollector.Instance.Initialize();
-
-            SettingsWindow.Instance = new SettingsWindow() { DataContext = PageCollector.Instance };
-            SettingsWindow.Instance.Show();
 
             ExtensionsFileHandler.LoadExtensionBases();
             ShortcutsManager.Instance.LoadAllShortcutsAync();
@@ -97,7 +93,7 @@ namespace BUSK
             set => SetValue(VisibleProperty, value);
         }
 
-        public readonly DependencyProperty PausedProperty = DependencyProperty.Register("Paused", typeof(bool), typeof(Window), new PropertyMetadata(true, OnPausedPropertyChanged));
+        public readonly DependencyProperty PausedProperty = DependencyProperty.Register("Paused", typeof(bool), typeof(Window), new PropertyMetadata(false, OnPausedPropertyChanged));
 
         private static void OnPausedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -114,7 +110,7 @@ namespace BUSK
             set => SetValue(PausedProperty, value);
         }
 
-        public bool IsSettingsWindowVisible => SettingsWindow.Instance == null ? false : (SettingsWindow.Instance.Visibility == Visibility.Visible);
+        public bool IsSettingsWindowVisible => SettingsWindow.Instance.Visibility == Visibility.Visible;
 
         public void PauseCounters()
         {

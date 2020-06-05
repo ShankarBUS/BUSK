@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:busk="http://schemas.busk.com/2020" xmlns:ui="http://schemas.modernwpf.com/2019" xmlns:nav="clr-namespace:BUSK.Navigation"
         mc:Ignorable="d" ui:WindowHelper.UseModernWindowStyle="True" ui:TitleBar.ExtendViewIntoTitleBar="True"
-        Title="Settings" Height="450" Width="800" MinWidth="400" MinHeight="200">
+        Title="Settings" Height="450" Width="800" MinWidth="400" MinHeight="200" DataContext="{x:Static nav:PageCollector.Instance}">
     <Window.Resources>
         <nav:NavItemTemplateSelector x:Key="selector" >
             <nav:NavItemTemplateSelector.ItemTemplate>

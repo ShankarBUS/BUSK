@@ -27,6 +27,11 @@ namespace BUSK.Core.Shortcutting.Commands
             get { return shortcut; }
             set
             {
+                if (Owner == value && value != null)
+                {
+                    return;
+                }
+
                 if (SetPropertyValue(ref shortcut, value)) 
                 { 
                     if (value != null)

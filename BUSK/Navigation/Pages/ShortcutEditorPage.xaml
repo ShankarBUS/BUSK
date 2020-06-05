@@ -39,7 +39,7 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="1" Drop="FileDrop" AllowDrop="True" Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" >
+        <Grid Grid.Row="1" Drop="FileDrop" DragOver="FileDragOver" AllowDrop="True" Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" >
             <TextBlock HorizontalAlignment="Center" Margin="10" VerticalAlignment="Top" Style="{DynamicResource BodyTextBlockStyle}" Text="No commands are available" Visibility="{Binding ElementName=ItemsContainer, Path=ItemsSource.Count, Mode=OneWay, Converter={StaticResource InvertCountToVisibilityConverter}}"/>
             <ScrollViewer>
                 <ItemsControl x:Name="ItemsContainer" ItemsSource="{Binding CurrentEdittingShortcut.Commands}" ItemTemplateSelector="{StaticResource CommandTemplateSelector}">

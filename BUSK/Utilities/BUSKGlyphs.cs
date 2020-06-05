@@ -24,7 +24,7 @@
 
         public const string Repair = "\uE15E";
 
-        public const string Shortcut = "\uE248";
+		public const string Shortcut = "\uEE35";
 
         public const string Editor = "\uF8A6";
 

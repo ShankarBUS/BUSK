@@ -26,8 +26,8 @@ namespace BUSK.Controls.Shortcutting
 
         private void AddDefaultTemplates()
         {
-            var res = new ResourceDictionary() { Source = PackUriHelper.GetAbsoluteUri("Controls/Shortcutting/CommandTemplates.xaml") };
-            foreach (var i in res.Values)
+            var cmdtemplates = new CommandTemplates();
+            foreach (var i in cmdtemplates.Values)
             {
                 if (i is DataTemplate dataTemplate)
                 {
