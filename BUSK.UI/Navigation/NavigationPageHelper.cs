@@ -11,6 +11,8 @@ namespace BUSK.Navigation
 
         internal static event NavigationPageAdditionEventHandler NavigationPageAdditionRequested;
 
+        internal static event NavigationPageRemovalEventHandler NavigationPageRemovalRequested;
+
         public static bool RequestNavigationPageAddition(Type pageType, string title, IconElement icon, string tooltip)
         {
             if (pageType == null) return false;
@@ -21,6 +23,16 @@ namespace BUSK.Navigation
             NavigationPageAdditionRequested?.Invoke(args);
 
             return args.PageAdded;
+        }
+
+        public static bool RequestNavigationPageRemoval(Type pageType)
+        {
+            if (pageType == null) return false;
+
+            var args = new NavigationPageRemovalEventArgs(pageType);
+            NavigationPageRemovalRequested?.Invoke(args);
+
+            return args.PageRemoved;
         }
     }
 }

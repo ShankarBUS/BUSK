@@ -62,6 +62,9 @@ namespace BUSK.ViewModels
         private async void AddCommandAsync()
         {
             var cmdItems = CommandsHelper.GetCommandItems();
+
+            SettingsWindow.EnsureInstanceAndShow();
+
             CommandSelectionDialog commandSelectionDialog  = new CommandSelectionDialog()
             {
                 Owner = SettingsWindow.Instance

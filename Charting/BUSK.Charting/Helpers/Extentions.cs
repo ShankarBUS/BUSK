@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using BUSK.Charting.Definitions.Series;
-using BUSK.Charting.Dtos;
 
 namespace BUSK.Charting.Helpers
 {

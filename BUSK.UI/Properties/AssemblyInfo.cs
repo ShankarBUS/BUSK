@@ -15,3 +15,5 @@ using System.Windows.Markup;
 
 [assembly: XmlnsPrefix("http://schemas.busk.com/2020", "busk")]
 [assembly: XmlnsDefinition("http://schemas.busk.com/2020", "BUSK.Navigation")]
+[assembly: XmlnsDefinition("http://schemas.busk.com/2020", "BUSK.UI.BuskBar")]
+[assembly: XmlnsDefinition("http://schemas.busk.com/2020", "BUSK.UI.Commands")]

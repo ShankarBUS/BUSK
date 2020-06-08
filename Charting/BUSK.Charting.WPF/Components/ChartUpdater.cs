@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows.Threading;
 using BUSK.Charting.Dtos;
 using BUSK.Charting.WPF.Charts.Base;

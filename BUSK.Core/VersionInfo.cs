@@ -15,24 +15,24 @@ namespace BUSK.Core
 
         public VersionInfo(int major, int minor, int build)
         {
-            this.Major = major;
-            this.Minor = minor;
-            this.Build = build;
+            Major = major;
+            Minor = minor;
+            Build = build;
         }
 
         public bool Equals(VersionInfo other)
         {
-            return this.Major == other.Major && this.Minor == other.Minor && this.Build == other.Build;
+            return Major == other.Major && Minor == other.Minor && Build == other.Build;
         }
 
         public override bool Equals(object obj)
         {
-            return (obj is VersionInfo other) && this.Equals(other);
+            return (obj is VersionInfo other) && Equals(other);
         }
 
         public override int GetHashCode()
         {
-            return this.Major.GetHashCode() ^ this.Minor.GetHashCode() ^ this.Build.GetHashCode();
+            return Major.GetHashCode() ^ Minor.GetHashCode() ^ Build.GetHashCode();
         }
 
         public static bool operator ==(VersionInfo left, VersionInfo right)
@@ -48,17 +48,17 @@ namespace BUSK.Core
 
         public int CompareTo(VersionInfo other)
         {
-            if (this.Major != other.Major)
+            if (Major != other.Major)
             {
-                return this.Major.CompareTo(other.Major);
+                return Major.CompareTo(other.Major);
             }
-            else if (this.Minor != other.Minor)
+            else if (Minor != other.Minor)
             {
-                return this.Minor.CompareTo(other.Minor);
+                return Minor.CompareTo(other.Minor);
             }
-            else if (this.Build != other.Build)
+            else if (Build != other.Build)
             {
-                return this.Build.CompareTo(other.Build);
+                return Build.CompareTo(other.Build);
             }
             else
             {
@@ -73,7 +73,7 @@ namespace BUSK.Core
                 throw new ArgumentException();
             }
 
-            return this.CompareTo(other);
+            return CompareTo(other);
         }
 
         public static bool operator <(VersionInfo left, VersionInfo right)
@@ -98,7 +98,7 @@ namespace BUSK.Core
 
         public override string ToString()
         {
-            return $"{this.Major}.{this.Minor}.{this.Build}";
+            return $"{Major}.{Minor}.{Build}";
         }
     }
 }

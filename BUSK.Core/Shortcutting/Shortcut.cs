@@ -20,8 +20,7 @@ namespace BUSK.Core.Shortcutting
     public enum ShortcutEditorAction
     {
         Save,
-        Cancel,
-        Delete
+        Cancel
     }
 
     public enum ShortcutPinUnpinAction
@@ -38,6 +37,8 @@ namespace BUSK.Core.Shortcutting
         }
 
         public ShortcutEditorAction Action { get; private set; }
+
+        public bool EndedEditing { get; set; } = false;
     }
 
     public class ShortcutPinUnpinEventArgs : EventArgs
@@ -176,26 +177,29 @@ namespace BUSK.Core.Shortcutting
 
             DeleteCommand = new RelayCommand((param) =>
             {
-                EndEditRequested?.Invoke(this, new ShortcutEndEditEventArgs(ShortcutEditorAction.Delete));
                 DeleteRequested?.Invoke(this, null);
             }, (param) => { return ShortcutType == ShortcutType.UserDefined; });
 
             EditCommand = new RelayCommand((param) =>
             {
-                this.BeginEdit();
+                BeginEdit();
                 EditRequested?.Invoke(this, null);
             }, (param) => { return ShortcutType == ShortcutType.UserDefined; });
 
             SaveCommand = new RelayCommand((param) =>
             {
-                this.EndEdit();
+                EndEdit();
                 EndEditRequested?.Invoke(this, new ShortcutEndEditEventArgs(ShortcutEditorAction.Save));
             });
 
             CancelCommand = new RelayCommand((param) =>
             {
-                this.CancelEdit();
-                EndEditRequested?.Invoke(this, new ShortcutEndEditEventArgs(ShortcutEditorAction.Cancel));
+                var endEditArgs = new ShortcutEndEditEventArgs(ShortcutEditorAction.Cancel);
+                EndEditRequested?.Invoke(this, endEditArgs);
+                if (endEditArgs.EndedEditing)
+                {
+                    CancelEdit();
+                }
             });
 
             RunCommand = new RelayCommand((param) => Start(), (param) => IsEnabled);

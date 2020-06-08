@@ -11,21 +11,7 @@ namespace BUSK
 {
 	public partial class SettingsWindow : Window
 	{
-		private static SettingsWindow instance;
-
-		public static SettingsWindow Instance 
-		{
-			get 
-			{
-				if (instance == null) instance = new SettingsWindow();
-				return instance;
-			}
-			set 
-			{
-				instance.Closing -= instance.WindowClosing;
-				instance = value;
-			}
-		}
+		public static SettingsWindow Instance { get; private set; }
 
 		public SettingsWindow()
 		{
@@ -46,11 +32,22 @@ namespace BUSK
 			};
 		}
 
+		public static void EnsureInstanceAndShow()
+		{
+			if (Instance == null)
+			{
+				Instance = new SettingsWindow();
+			}
+
+			Instance.Show();
+		}
+
 		private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			if (SettingsWindow.Instance == this)
+			if (Instance == this)
 			{
-				SettingsWindow.Instance = null;
+				Instance = null;
+				Closing -= WindowClosing;
 			}
 		}
 

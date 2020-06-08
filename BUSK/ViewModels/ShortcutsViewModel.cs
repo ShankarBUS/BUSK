@@ -36,7 +36,7 @@ namespace BUSK.ViewModels
         public ShortcutsViewModel()
         {
             ShortcutsManager.Instance.ShortcutEditRequested += Instance_ShortcutEditRequested;
-            ShortcutsManager.Instance.ShortcutEndEditRequested += Instance_ShortcutEndEditRequested;
+            ShortcutsManager.Instance.ShortcutEndEditRequested += Instance_ShortcutEndEditRequestedAsync;
             ShortcutsManager.Instance.ShortcutPinUnpinRequested += Instance_ShortcutPinUnpinRequested;
             ShortcutsManager.Instance.ShortcutDeleteRequested += Instance_ShortcutDeleteRequestedAsync;
 
@@ -47,13 +47,16 @@ namespace BUSK.ViewModels
                 ShortcutsManager.Instance.Shortcuts.Add(shortcut);
                 IsEditorEnabled = true;
                 ShortcutEditorViewModel.Instance.CurrentEdittingShortcut = shortcut;
-                SettingsWindow.Instance.ContentFrame.Navigate(typeof(ShortcutEditorPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+                SettingsWindow.Instance?.ContentFrame.Navigate(typeof(ShortcutEditorPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
             });
         }
 
         private async void Instance_ShortcutDeleteRequestedAsync(object sender, EventArgs e)
         {
             Shortcut shortcut = (Shortcut)sender;
+
+            SettingsWindow.EnsureInstanceAndShow();
+
             ContentDialog contentDialog = new ContentDialog()
             {
                 Owner = SettingsWindow.Instance,
@@ -65,14 +68,20 @@ namespace BUSK.ViewModels
                 DefaultButton = ContentDialogButton.Secondary
             };
             var result = await contentDialog.ShowAsync();
-            if (result == ContentDialogResult.Primary)
+
+            void RemoveAndCloseEditor()
             {
                 ShortcutsManager.Instance.Shortcuts.Remove(shortcut);
+                CloseEditor();
+            }
+            if (result == ContentDialogResult.Primary)
+            {
+                RemoveAndCloseEditor();
                 ShortcutsManager.Instance.DeleteShortcut(shortcut);
             }
             else if (result == ContentDialogResult.Secondary)
             {
-                ShortcutsManager.Instance.Shortcuts.Remove(shortcut);
+                RemoveAndCloseEditor();
             }
             else
             {
@@ -84,15 +93,48 @@ namespace BUSK.ViewModels
         {
             IsEditorEnabled = true;
             ShortcutEditorViewModel.Instance.CurrentEdittingShortcut = sender as Shortcut;
-            SettingsWindow.Instance.ContentFrame.Navigate(typeof(ShortcutEditorPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+            SettingsWindow.Instance?.ContentFrame.Navigate(typeof(ShortcutEditorPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
 
-        private void Instance_ShortcutEndEditRequested(object sender, ShortcutEndEditEventArgs e)
+        private async void Instance_ShortcutEndEditRequestedAsync(object sender, ShortcutEndEditEventArgs e)
+        {
+            if (e.Action == ShortcutEditorAction.Save)
+            {
+                e.EndedEditing = true;
+                CloseEditor();
+            }
+            else if (e.Action == ShortcutEditorAction.Cancel)
+            {
+                SettingsWindow.EnsureInstanceAndShow();
+
+                ContentDialog contentDialog = new ContentDialog()
+                {
+                    Owner = SettingsWindow.Instance,
+                    Title = "Cancel edit?",
+                    Content = "Changes in shortcut will not be saved, in case of shortcuts that are not already saved they will be removed.",
+                    PrimaryButtonText = "Cancel editing",
+                    CloseButtonText = "Continue editing",
+                    DefaultButton = ContentDialogButton.Close
+                };
+                var result = await contentDialog.ShowAsync();
+
+                if (result == ContentDialogResult.Primary)
+                {
+                    e.EndedEditing = true;
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
+
+        private void CloseEditor()
         {
             ShortcutEditorViewModel.Instance.CurrentEdittingShortcut = null;
-            if (SettingsWindow.Instance.ContentFrame.SourcePageType == typeof(ShortcutEditorPage))
+            if (SettingsWindow.Instance?.ContentFrame.SourcePageType == typeof(ShortcutEditorPage))
             {
-                SettingsWindow.Instance.ContentFrame.Navigate(typeof(ShortcutsPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromLeft });
+                SettingsWindow.Instance?.ContentFrame.Navigate(typeof(ShortcutsPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromLeft });
             }
             IsEditorEnabled = false;
         }

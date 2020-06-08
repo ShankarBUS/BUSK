@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using BUSK.Charting.Definitions.Series;
 using BUSK.Charting.Dtos;
 using BUSK.Charting.WPF.Charts.Base;
 

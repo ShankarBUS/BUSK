@@ -1,6 +1,5 @@
 ﻿using BUSK.Core.Shortcutting.Commands;
-using BUSK.UI;
-using BUSK.Utilities;
+using BUSK.UI.Commands;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -18,9 +17,14 @@ namespace BUSK.Controls.Shortcutting
         {
             AddDefaultTemplates();
 
-            ShortcutCommandTemplateHelper.CommandTemplateAdditionRequested += (e) =>
+            CommandTemplateHelper.CommandTemplateAdditionRequested += (e) =>
             {
                 e.TemplateAdded = AddTemplate(e.CommandTemplate);
+            };
+
+            CommandTemplateHelper.CommandTemplateRemovalRequested += (e) =>
+            {
+                e.TemplateRemoved = RemoveTemplate(e.CommandTemplate);
             };
         }
 
@@ -47,9 +51,25 @@ namespace BUSK.Controls.Shortcutting
             return false;
         }
 
+        private bool RemoveTemplate(CommandTemplate commandTemplate)
+        {
+            if (Exists(commandTemplate) && commandTemplate.CommandType.BaseType == typeof(Command))
+            {
+                CommandTemplates.Remove(commandTemplate);
+                return true;
+            }
+
+            return false;
+        }
+
         public bool Exists(Type commandType)
         {
             return CommandTemplates.Any(template => template.CommandType == commandType);
+        }
+
+        public bool Exists(CommandTemplate commandTemplate)
+        {
+            return CommandTemplates.Contains(commandTemplate);
         }
     }
 }

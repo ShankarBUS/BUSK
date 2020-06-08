@@ -33,6 +33,11 @@ namespace BUSK.Navigation
                 e.PageAdded = AddPage(e.PageType, e.Title, e.Icon, e.Tooltip);
             };
 
+            NavigationPageHelper.NavigationPageRemovalRequested += (e) =>
+            {
+                e.PageRemoved = RemovePage(e.PageType);
+            };
+
             CommandTemplateHandler.Instance = new CommandTemplateHandler();
         }
 
@@ -108,6 +113,51 @@ namespace BUSK.Navigation
             }
 
             return false;
+        }
+
+        private bool RemovePage(Type pageType)
+        {
+            if (Exists(pageType))
+            {
+                var navItem = NavItems.FirstOrDefault(item => item is NavItem navItem && navItem?.PageType == pageType);
+
+                if (navItem == null)
+                {
+                    return false;
+                }
+
+                NavItems.Remove(navItem);
+
+                var contentFrame = SettingsWindow.Instance?.ContentFrame;
+                if (contentFrame != null)
+                {
+                    if (contentFrame.SourcePageType == pageType)
+                    {
+                        contentFrame.Navigate(typeof(SettingsPage), null, new EntranceNavigationTransitionInfo());
+                    }
+
+                    contentFrame.RemoveBackEntry();
+                    RemoveFrameHistory(contentFrame);
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
+        private void RemoveFrameHistory(Frame contentFrame, bool navigateToSettings = true)
+        {
+            if (!contentFrame.CanGoBack)
+            {
+                return;
+            }
+
+            var entry = contentFrame.RemoveBackEntry();
+            while (entry != null)
+            {
+                entry = contentFrame.RemoveBackEntry();
+            }
         }
 
         public bool Exists(Type pageType)

@@ -11,7 +11,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -329,9 +328,6 @@ namespace BUSK.Core.Shortcutting
                 {
                     Shortcuts.Remove(shortcut);
                 }
-            }
-            else if (e.Action == ShortcutEditorAction.Delete)
-            {
             }
 
             ShortcutEndEditRequested?.Invoke(sender, e);

@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 
@@ -24,14 +18,14 @@ namespace BUSK.Core.Utilities
             var win = BuskInterop.MainWindow;
             if (win != null)
             {
-                this.Initialize(win);
+                Initialize(win);
             }
             else
             {
                 EventHandler handler = null;
                 handler = (e, args) =>
                 {
-                    this.Initialize(BuskInterop.MainWindow);
+                    Initialize(BuskInterop.MainWindow);
                     BuskInterop.HookRequested -= handler;
                 };
                 BuskInterop.HookRequested += handler;
@@ -56,7 +50,7 @@ namespace BUSK.Core.Utilities
         protected virtual void InitializeCore(Window win)
         {
             var source = HwndSource.FromHwnd(new WindowInteropHelper(win).Handle);
-            source.AddHook(this.WndProc);
+            source.AddHook(WndProc);
         }
 
         protected abstract IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled);

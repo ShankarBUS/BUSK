@@ -3,6 +3,7 @@ using BUSK.Core.Diagnostics;
 using BUSK.Core.Extensibility;
 using BUSK.Core.Shortcutting;
 using BUSK.Navigation;
+using BUSK.Navigation.Pages;
 using BUSK.Utilities;
 using System.ComponentModel;
 using System.IO;
@@ -110,7 +111,18 @@ namespace BUSK
             set => SetValue(PausedProperty, value);
         }
 
-        public bool IsSettingsWindowVisible => SettingsWindow.Instance.Visibility == Visibility.Visible;
+        public bool IsSettingsWindowVisible
+        {
+            get
+            {
+                if (SettingsWindow.Instance == null)
+                {
+                    return false;
+                }
+
+                return SettingsWindow.Instance?.Visibility == Visibility.Visible;
+            }
+        }
 
         public void PauseCounters()
         {
@@ -143,12 +155,12 @@ namespace BUSK
 
         public void ShowSettingsWindow()
         {
-            SettingsWindow.Instance.Show();
+            SettingsWindow.EnsureInstanceAndShow();
         }
 
         public void HideSettingsWindow()
         {
-            SettingsWindow.Instance.Hide();
+            SettingsWindow.Instance?.Hide();
         }
 
         #endregion
@@ -183,7 +195,7 @@ namespace BUSK
 
         private void Test(object sender, RoutedEventArgs e)
         {
-
+            NavigationPageHelper.RequestNavigationPageRemoval(typeof(NetStatusPage));
         }
 
         #endregion

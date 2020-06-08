@@ -29,6 +29,7 @@
                 <TextBlock Text="{Binding Source={x:Static busk:DiskInformation.Instance}, Path=DiskUsageText}"/>
                 <TextBlock Text="{Binding Source={x:Static busk:NetInformation.Instance}, Path=Down}"/>
                 <TextBlock Text="{Binding Source={x:Static busk:RAMInformation.Instance}, Path=RAMUsageText}"/>
+                <busk:BuskBarButton Content="Hello bish"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>
