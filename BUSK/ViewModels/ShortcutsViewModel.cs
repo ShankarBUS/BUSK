@@ -71,6 +71,7 @@ namespace BUSK.ViewModels
 
             void RemoveAndCloseEditor()
             {
+                shortcut.CancelEdit();
                 ShortcutsManager.Instance.Shortcuts.Remove(shortcut);
                 CloseEditor();
             }
@@ -121,6 +122,7 @@ namespace BUSK.ViewModels
                 if (result == ContentDialogResult.Primary)
                 {
                     e.EndedEditing = true;
+                    CloseEditor();
                 }
                 else
                 {
