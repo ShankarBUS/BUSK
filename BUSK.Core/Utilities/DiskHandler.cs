@@ -2,7 +2,7 @@
 
 namespace BUSK.Core.Utilities
 {
-    public class DiskHandler : HookHandler
+    public sealed class DiskHandler : HookHandler
     {
         private const int WM_DEVICECHANGE = 0x219;
 

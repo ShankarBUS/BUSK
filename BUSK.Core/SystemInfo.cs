@@ -2,7 +2,7 @@
 
 namespace BUSK.Core
 {
-    public class SystemInfo
+    public static class SystemInfo
     {
         public static Lazy<VersionInfo> Version = new Lazy<VersionInfo>(() => GetVersionInfo());
 

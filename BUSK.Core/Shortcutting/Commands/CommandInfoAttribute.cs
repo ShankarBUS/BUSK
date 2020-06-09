@@ -6,7 +6,7 @@ namespace BUSK.Core.Shortcutting.Commands
     /// Defines the information of a <see cref="Command"/>
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-    public class CommandInfoAttribute : Attribute
+    public sealed class CommandInfoAttribute : Attribute
     {
         public CommandInfoAttribute(string name, string description)
         {

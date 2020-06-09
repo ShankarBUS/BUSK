@@ -5,7 +5,7 @@ using static BUSK.Core.Utilities.NativeMethods;
 
 namespace BUSK.Core.Utilities
 {
-    public class KeyboardHook
+    internal sealed class KeyboardHook
     {
         public event KeyDownEventHandler KeyDown;
 

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace BUSK.Core.Diagnostics
 {
-    public class DiskInformation : CounterBase
+    public sealed class DiskInformation : CounterBase
     {
         private PerformanceCounter disktime;
 

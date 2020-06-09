@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace BUSK.Core.Diagnostics
 {
-    public class NetInterface
+    public sealed class NetInterface
     {
         public string Name { get; set; } = "";
 
@@ -20,7 +20,7 @@ namespace BUSK.Core.Diagnostics
         }
     }
 
-    public class NetInformation : CounterBase
+    public sealed class NetInformation : CounterBase
     {
         private long prevDown = 0;
 

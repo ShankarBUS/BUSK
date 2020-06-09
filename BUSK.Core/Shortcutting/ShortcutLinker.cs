@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace BUSK.Core.Shortcutting
 {
-    internal class ShortcutLinker
+    internal sealed class ShortcutLinker
     {
         internal static Dictionary<string, List<TaskCompletionSource<Shortcut>>> CommandLinks = new Dictionary<string, List<TaskCompletionSource<Shortcut>>>();
 

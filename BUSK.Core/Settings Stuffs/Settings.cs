@@ -1,117 +1,66 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace BUSK.Core
 {
     [Serializable]
-    public class Setting
+    public abstract class SettingBase
     {
-        public Setting(string name, object value)
+        [XmlIgnore]
+        internal string ID { get; set; }
+
+        [XmlAttribute]
+        public string Name { get; set; }
+
+        public abstract object GetValue();
+    }
+
+    [Serializable]
+    [XmlRoot]
+    public sealed class Setting<TValue> : SettingBase
+    {
+        public Setting()
+        {
+            ID = Guid.NewGuid().ToString();
+        }
+
+        public Setting(string name, TValue value) : this()
         {
             Name = name;
             Value = value;
         }
 
-        public string Name { get; set; }
-        public object Value { get; set; }
+        public TValue Value { get; set; }
+
+        public override object GetValue() => Value;
     }
 
     [Serializable]
-    public class SettingsCollector
+    public sealed class SettingWrapper
     {
-        public readonly List<Setting> Settings;
-
-        private const string C_NOT_SPPRTD_FS_FILE_MSG = "The settings file is corrupt!";
-
-        private const string C_SETTINGS_PATH = @".\Settings.cfg";
-
-        private static SettingsCollector sc = null;
-
-        public static SettingsCollector Instance()
+        public SettingWrapper()
         {
-            if(sc == null) { Init(); }
-            return sc;
+
         }
 
-        public SettingsCollector()
+        public SettingWrapper(SettingBase settingBase)
         {
-            Settings = new List<Setting>();
+            var settingType = settingBase.GetType();
+            SettingTypeString = settingType.AssemblyQualifiedName;
+            ID = settingBase.ID;
         }
 
-        private static void Init()
+        public SettingWrapper(string id, Type settingType)
         {
-            if (File.Exists(C_SETTINGS_PATH)) 
-            {
-                try
-                {
-                    var fs = new FileStream(C_SETTINGS_PATH, FileMode.Open);
-                    var bf = new BinaryFormatter();
-                    sc = (SettingsCollector)bf.Deserialize(fs);
-                    fs.Flush(); fs.Close(); fs.Dispose();
-                }
-                catch (Exception e) { throw new NotSupportedException(C_NOT_SPPRTD_FS_FILE_MSG, e); }
-            }
-            else 
-            {
-                sc = new SettingsCollector();
-            }
+            SettingTypeString = settingType.AssemblyQualifiedName;
+            ID = id;
         }
 
-        public void Save()
-        {
-            try
-            {
-                var fs = File.Open(C_SETTINGS_PATH, FileMode.OpenOrCreate);
-                var bf = new BinaryFormatter();
-                bf.Serialize(fs, this);
-                fs.Flush(); fs.Close(); fs.Dispose();
-            }
-            catch(Exception e)
-            {
-                throw e;
-            }
-        }
-
-        public void Clear()
-        {
-            Settings.Clear();
-        }
-
-        public int Count()
-        {
-            return Settings.Count;
-        }
-
-        public void Add(Setting val)
-        {
-            foreach( Setting sett in Settings)
-            {
-                if(sett.Name == val.Name)
-                {
-                    sett.Value = val.Value;
-                    return;
-                }
-            }
-            Settings.Add(val);
-        }
-
-        public void Remove(Setting val)
-        {
-            Settings.Remove(val);
-        }
-
-        public Setting GetSetting(string name)
-        {
-            foreach(Setting sett in Settings)
-            {
-                if(sett.Name == name)
-                {
-                    return sett;
-                }
-            }
-            return null;
-        }
+        [XmlAttribute]
+        public string SettingTypeString { get; set; }
+        
+        [XmlAttribute]
+        public string ID { get; set; }
     }
 }

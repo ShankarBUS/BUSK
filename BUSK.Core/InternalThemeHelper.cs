@@ -1,9 +1,8 @@
 ﻿using System;
-using System.ComponentModel;
 
 namespace BUSK.Core
 {
-    [EditorBrowsable(EditorBrowsableState.Never)]
+    [Serializable]
     public enum Theme
     {
         WindowsDefault = 0,
@@ -13,21 +12,19 @@ namespace BUSK.Core
 
     internal class InternalThemeHelper
     {
-        public static event EventHandler<InternalThemeChangesEventArgs> InternalThemeChanged;
-
         public static void SetLightTheme()
         {
-            InternalThemeChanged?.Invoke(null, new InternalThemeChangesEventArgs(Theme.Light));
+            SettingsManager.Instance.Theme = Theme.Light;
         }
 
         public static void SetDarkTheme()
         {
-            InternalThemeChanged?.Invoke(null, new InternalThemeChangesEventArgs(Theme.Dark));
+            SettingsManager.Instance.Theme = Theme.Dark;
         }
 
         public static void SetWindowsDefaultTheme()
         {
-            InternalThemeChanged?.Invoke(null, new InternalThemeChangesEventArgs(Theme.WindowsDefault));
+            SettingsManager.Instance.Theme = Theme.WindowsDefault;
         }
     }
 

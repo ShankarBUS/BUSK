@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace BUSK.UI.Commands
 {
-    public class CommandTemplate
+    public sealed class CommandTemplate
     {
         public Type CommandType { get; set; }
 

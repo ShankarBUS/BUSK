@@ -3,13 +3,25 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:busk="http://schemas.busk.com/2020" xmlns:ui="http://schemas.modernwpf.com/2019" xmlns:nav="clr-namespace:BUSK.Navigation"
+      xmlns:System="clr-namespace:System;assembly=System.Runtime"
+      xmlns:busk="http://schemas.busk.com/2020" xmlns:ui="http://schemas.modernwpf.com/2019"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="800" DataContext="{x:Static busk:SettingsManager.Instance}"
       Title="Settings">
+    <Page.Resources>
+        <ObjectDataProvider x:Key="Themes" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="busk:Theme"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Page.Resources>
     <Grid>
-        <Button>
-            Hello Settings
-        </Button>
+        <StackPanel Margin="10">
+            <ui:ToggleSwitch IsOn="{Binding Path=CPUModuleEnabled}" Header="CPU Module :" Margin="10"/>
+            <ui:ToggleSwitch IsOn="{Binding Path=RAMModuleEnabled}" Header="RAM Module :" Margin="10"/>
+            <ui:ToggleSwitch IsOn="{Binding Path=DiskModuleEnabled}" Header="Disk Module :" Margin="10"/>
+            <ui:ToggleSwitch IsOn="{Binding Path=NetModuleEnabled}" Header="Network Module :" Margin="10"/>
+            <ComboBox ItemsSource="{Binding Source={StaticResource Themes}}" SelectedItem="{Binding Theme}"/>
+        </StackPanel>
     </Grid>
 </Page>

@@ -1,6 +1,6 @@
 ﻿namespace BUSK.UI.Commands
 {
-    public class CommandTemplateHelper
+    public static class CommandTemplateHelper
     {
         internal static event CommandTemplateAdditionEventHandler CommandTemplateAdditionRequested;
 

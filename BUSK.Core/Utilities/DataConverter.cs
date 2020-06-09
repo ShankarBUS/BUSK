@@ -2,7 +2,7 @@
 
 namespace BUSK.Core.Utilities
 {
-    public class DataConverter
+    public sealed class DataConverter
     {
         /// <summary>
         /// Converts the given bytes into a human readable format (i.e. KB, MB, GB, etc.) 

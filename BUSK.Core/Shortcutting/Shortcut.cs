@@ -29,7 +29,7 @@ namespace BUSK.Core.Shortcutting
         Unpin
     }
 
-    public class ShortcutEndEditEventArgs : EventArgs
+    internal sealed class ShortcutEndEditEventArgs : EventArgs
     {
         public ShortcutEndEditEventArgs(ShortcutEditorAction action)
         {
@@ -41,7 +41,7 @@ namespace BUSK.Core.Shortcutting
         public bool EndedEditing { get; set; } = false;
     }
 
-    public class ShortcutPinUnpinEventArgs : EventArgs
+    internal sealed class ShortcutPinUnpinEventArgs : EventArgs
     {
         public ShortcutPinUnpinEventArgs(ShortcutPinUnpinAction action)
         {
@@ -52,7 +52,7 @@ namespace BUSK.Core.Shortcutting
     }
 
     [Serializable][XmlRoot]
-    public class Shortcut : BindableBase, IEditableObject 
+    public sealed class Shortcut : BindableBase, IEditableObject 
     {
         [XmlIgnore]
         public string ID { get; internal set; }

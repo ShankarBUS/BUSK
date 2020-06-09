@@ -1,6 +1,6 @@
 ﻿namespace BUSK.UI.BuskBar
 {
-    public class BuskBarHelper
+    public static class BuskBarHelper
     {
         internal static event BuskBarItemAdditionEventHandler BuskBarItemAdditionRequested;
 

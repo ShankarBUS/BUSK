@@ -2,7 +2,7 @@
 
 namespace BUSK.Core.Extensibility
 {
-    public class ExtensionBase
+    public abstract class ExtensionBase
     {
         public string ExtensionConfigLocation { get; internal set; }
 

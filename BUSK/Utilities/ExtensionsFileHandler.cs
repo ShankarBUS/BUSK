@@ -33,7 +33,7 @@ namespace BUSK.Utilities
                 Type[] types = ass.GetExportedTypes();
                 foreach (Type type in types)
                 {
-                    if (type.BaseType.Name == nameof(ExtensionBase))
+                    if (type.BaseType == typeof(ExtensionBase))
                     {
                         tn = type.FullName;
                     }

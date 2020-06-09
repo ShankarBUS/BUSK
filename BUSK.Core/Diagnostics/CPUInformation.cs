@@ -2,7 +2,7 @@
 
 namespace BUSK.Core.Diagnostics
 {
-    public class CPUInformation : CounterBase
+    public sealed class CPUInformation : CounterBase
     {
         private PerformanceCounter cpu = new PerformanceCounter("Processor", "% Processor Time", "_Total");
 

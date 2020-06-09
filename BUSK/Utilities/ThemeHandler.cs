@@ -9,12 +9,19 @@ namespace BUSK.Utilities
 
         public ThemeHandler()
         {
-            InternalThemeHelper.InternalThemeChanged += InternalThemeHelper_InternalThemeChanged;
+            SettingsManager.Instance.InternalThemeChanged += InternalThemeChanged;
+
+            ChangeTheme(SettingsManager.Instance.Theme);
         }
 
-        private void InternalThemeHelper_InternalThemeChanged(object sender, InternalThemeChangesEventArgs e)
+        private void InternalThemeChanged(object sender, InternalThemeChangesEventArgs e)
         {
-            switch (e.Theme)
+            ChangeTheme(e.Theme);
+        }
+
+        private static void ChangeTheme(Theme theme)
+        {
+            switch (theme)
             {
                 case Theme.WindowsDefault:
                     ThemeManager.Current.ApplicationTheme = null;

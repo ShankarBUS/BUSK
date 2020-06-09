@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace BUSK.Core.Shortcutting
 {
-    internal class InbuiltShortcuts
+    internal static class InbuiltShortcuts
     {
         internal static Shortcut ToggleMainWindowVisibility
         {
@@ -37,9 +37,9 @@ namespace BUSK.Core.Shortcutting
                     CustomMethod = () =>
                     {
                         string o = "";
-                        foreach (Setting setting in SettingsCollector.Instance().Settings)
+                        foreach (SettingBase setting in SettingsCollector.Instance.Settings)
                         {
-                            o += $"{setting.Name} : {setting.Value.ToString()} \n";
+                            o += $"{setting.Name} : {setting.GetValue()} \n";
                         }
                         MessageBox.Show(o);
                     }

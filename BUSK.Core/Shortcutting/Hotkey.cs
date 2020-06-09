@@ -1,9 +1,11 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using System.Xml.Serialization;
 
 namespace BUSK.Core.Shortcutting
 {
-    public class Hotkey : BindableBase
+    [Serializable]
+    public sealed class Hotkey : BindableBase
     {
         public Hotkey()
         {

@@ -2,7 +2,7 @@
 
 namespace BUSK.Core.Utilities
 {
-    public class DisplayHandler : HookHandler
+    public sealed class DisplayHandler : HookHandler
     {
         private const int SPI_SETWORKAREA = 0x2f;
 

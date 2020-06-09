@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using BUSK.Utilities;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +13,7 @@ using System.Text;
 
 namespace BUSK.Core.Utilities
 {
-    public class IconExtractor
+    public sealed class IconExtractor
     {
         ////////////////////////////////////////////////////////////////////////
         // Constants

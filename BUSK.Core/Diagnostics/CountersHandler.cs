@@ -2,7 +2,7 @@
 
 namespace BUSK.Core.Diagnostics
 {
-    public class CountersHandler
+    public sealed class CountersHandler
     {
         public const double DefaultInterval = 1000.0;
 

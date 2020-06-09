@@ -4,7 +4,7 @@ using System.Drawing;
 
 namespace BUSK.Core.Utilities
 {
-    public class ImageHelper
+    public static class ImageHelper
     {
 
         public static Image GetBitmap(BitmapImage bmpimg)

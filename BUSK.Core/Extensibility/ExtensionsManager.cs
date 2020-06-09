@@ -5,7 +5,7 @@ using System.Collections.Specialized;
 
 namespace BUSK.Core.Extensibility
 {
-    public class ExtensionEnableChangedEventArgs : EventArgs
+    public sealed class ExtensionEnableChangedEventArgs : EventArgs
     {
         public ExtensionEnableChangedEventArgs(string cfglocation)
         {
@@ -15,7 +15,7 @@ namespace BUSK.Core.Extensibility
         public string ConfigLocation { get; private set; }
     }
 
-    public class ExtensionsManager
+    public sealed class ExtensionsManager
     {
         public static ExtensionsManager Instance;
 

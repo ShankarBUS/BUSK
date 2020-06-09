@@ -18,7 +18,7 @@ using System.Xml.Serialization;
 
 namespace BUSK.Core.Shortcutting
 {
-    public class ShortcutsManager
+    public sealed class ShortcutsManager
     {
         private readonly KeyboardHook KeyboardHook = new KeyboardHook();
 

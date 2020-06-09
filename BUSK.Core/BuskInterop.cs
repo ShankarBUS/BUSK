@@ -50,7 +50,7 @@ namespace BUSK.Core
 
             IMainWindow = (IMainWindow)mainWindow;
 
-            SettingsManager.Initialize();
+            SettingsManager.Instance = new SettingsManager();
             DiskHandler.Initialize();
             DisplayHandler.Initialize();
             VersionInfos.Initialize();

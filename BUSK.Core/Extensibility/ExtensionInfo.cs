@@ -5,7 +5,7 @@ namespace BUSK.Core.Extensibility
 {
     [Serializable]
     [XmlRoot]
-    public class ExtensionInfo : BindableBase
+    public sealed class ExtensionInfo : BindableBase
     {
         public ExtensionInfo()
         {

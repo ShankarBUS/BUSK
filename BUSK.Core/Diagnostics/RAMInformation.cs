@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace BUSK.Core.Diagnostics
 {
-    public class RAMInformation : CounterBase
+    public sealed class RAMInformation : CounterBase
     {
         private PerformanceCounter memCounter = new PerformanceCounter("Memory", "Available Bytes");
 

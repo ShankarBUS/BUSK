@@ -3,7 +3,7 @@ using System;
 
 namespace BUSK.Navigation
 {
-    public class NavigationPageHelper
+    public static class NavigationPageHelper
     {
         internal const string DefaultPageTitle = "Navigation Page";
 
