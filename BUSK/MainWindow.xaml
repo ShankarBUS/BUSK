@@ -30,6 +30,18 @@
                 <TextBlock Text="{Binding Source={x:Static busk:NetInformation.Instance}, Path=Down}"/>
                 <TextBlock Text="{Binding Source={x:Static busk:RAMInformation.Instance}, Path=RAMUsageText}"/>
                 <busk:BuskBarButton Content="Hello bish"/>
+                <ui:CommandBar>
+                    <ui:AppBarButton>
+                        <ui:AppBarButton.Icon>
+                            <busk:FontIconEx Glyph="Cancel"/>
+                        </ui:AppBarButton.Icon>
+                    </ui:AppBarButton>
+                    <ui:AppBarButton>
+                        <ui:AppBarButton.Icon>
+                            <busk:FontIconEx Glyph="&#xE70F;"/>
+                        </ui:AppBarButton.Icon>
+                    </ui:AppBarButton>
+                </ui:CommandBar>
             </StackPanel>
         </ScrollViewer>
     </Grid>

@@ -19,16 +19,7 @@
             </Grid.Resources>
             <TextBlock HorizontalAlignment="Center" Margin="10" VerticalAlignment="Top" Style="{DynamicResource BodyTextBlockStyle}" Text="No extensions are installed" Visibility="{Binding ElementName=ItemsContainer, Path=ItemsSource.Count, Mode=OneWay, Converter={StaticResource InvertCountToVisibilityConverter}}"/>
             <ScrollViewer>
-                <ItemsControl x:Name="ItemsContainer">
-                    <busk:ExtensionBase>
-                        <busk:ExtensionBase.ExtensionInfo>
-                            <busk:ExtensionInfo Title="Hello" Description="My descriptionhddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd">
-                                <busk:ExtensionInfo.ImageSource>
-                                    <BitmapImage UriSource="/BUSK.Core;component/Assets/Images/64.png"/>
-                                </busk:ExtensionInfo.ImageSource>
-                            </busk:ExtensionInfo>
-                        </busk:ExtensionBase.ExtensionInfo>
-                    </busk:ExtensionBase>
+                <ItemsControl x:Name="ItemsContainer" ItemsSource="{Binding ExtensionBases}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel/>
