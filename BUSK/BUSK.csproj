@@ -15,15 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Navigation\Pages\NetStatusPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Navigation\Pages\RAMStatusPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Navigation\Pages\DiskStatusPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -51,15 +42,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Navigation\Pages\NetStatusPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Navigation\Pages\RAMStatusPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Navigation\Pages\DiskStatusPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
+    <PackageReference Include="McMaster.NETCore.Plugins" Version="1.3.0" />
+    <PackageReference Include="System.Management" Version="5.0.0-preview.4.20251.6" />
   </ItemGroup>
-
+  
 </Project>

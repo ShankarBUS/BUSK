@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using BUSK.Utilities;
+using System.Windows;
 
 namespace BUSK.Controls
 {
@@ -19,13 +20,7 @@ namespace BUSK.Controls
                     var fi = new System.IO.FileInfo(file);
                     if (fi.Extension.ToLower() == ".dll")
                     {
-                        Utilities.ExtensionsFileHandler.paths.Add(fi.Name, fi.DirectoryName);
-                        var exbase = Utilities.ExtensionsFileHandler.LoadExtensionBaseFromFile(fi.FullName);
-                        if (exbase != null)
-                        {
-                            var configpath = Utilities.ExtensionsFileHandler.GetOtherFileWithExtension(fi.FullName, Utilities.ExtensionsFileHandler.cfgfileext);
-                            Utilities.ExtensionsFileHandler.SaveExtConfig(exbase.ExtensionInfo, configpath);
-                        }
+                        ExtensionsFileHandler.TryGenerateAndSaveInfoFromExtensionAssembly(fi.FullName);
                     }
                 }
             }

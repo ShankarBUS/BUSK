@@ -1,5 +1,4 @@
 ﻿using BUSK.Core.Utilities;
-using BUSK.Utilities;
 using System.Diagnostics;
 
 namespace BUSK.Core.Diagnostics
@@ -83,7 +82,6 @@ namespace BUSK.Core.Diagnostics
         protected override void OnRun()
         {
             base.OnRun();
-            SetTotalRAM();
         }
 
         public override void Update()
@@ -101,13 +99,11 @@ namespace BUSK.Core.Diagnostics
             RAMUsageText = ((int)us).ToString() + "%";
         }
 
-        internal void SetTotalRAM()
+        internal void SetTotalRAM(long tmemb)
         {
             if (_isinit) return;
 
-            long _tmemb = HardwareInfo.GetPhysicalMemoryBytes();
-
-            TotalRAMBytes = _tmemb;
+            TotalRAMBytes = tmemb;
             TotalRAM = DataConverter.FormatBytes(tmemb);
             TotalRAMNoSuffix = DataConverter.FormatBytes(tmemb, false);
 

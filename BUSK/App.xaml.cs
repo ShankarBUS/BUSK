@@ -30,8 +30,6 @@ namespace BUSK
             stopwatch.Start();
             Debug.WriteLine("Start : " + DateTime.Now.ToLongTimeString());
             Debug.WriteLine("Loaded");
-            Domain = AppDomain.CurrentDomain;
-            Domain.AssemblyResolve += Domain_AssemblyResolve;
         }
 
         private void ShowSplash(System.Windows.Threading.Dispatcher dispatcher)
@@ -81,49 +79,6 @@ namespace BUSK
             MainWindow = mainWindow;
             mainWindow.Show();
             base.OnStartup(e);
-        }
-
-        private AppDomain Domain;
-
-        private Assembly Domain_AssemblyResolve(object sender, ResolveEventArgs e)
-        {
-            if (e.Name.Contains(".resources"))
-            {
-                return null;
-            }
-
-            Debug.WriteLine(e.RequestingAssembly.Location + " - " + e.RequestingAssembly.FullName + " Resquests - " + e.Name);
-
-            if (!Directory.Exists(@".\ExtRefFallback"))
-            {
-                Directory.CreateDirectory(@".\ExtRefFallback");
-            }
-
-            // returns pre-existing ones
-            Assembly assembly = Domain.GetAssemblies().FirstOrDefault((a) => a.FullName == e.Name);
-            if (assembly != null) { return assembly; }
-
-            var dllname = e.RequestingAssembly.FullName.Split(',')[0] + ".dll".ToLower();
-            var fileName = e.Name.Split(',')[0] + ".dll".ToLower();
-
-            // Method 1
-            foreach (var v in ExtensionsFileHandler.paths)
-            {
-                if (v.Key == dllname )
-                {
-                    try
-                    {
-                        var location = Path.Combine(v.Value, fileName);
-                        return Assembly.LoadFrom(location);
-                    } catch { }
-                }
-            }
-
-            var asmFile = Path.Combine(@".\", "ExtRefFallback", fileName);
-
-            try { return Assembly.LoadFrom(asmFile); } catch { }
-
-            return null;
         }
     }
 }

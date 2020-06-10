@@ -22,7 +22,7 @@ namespace BUSK.Core
     {
         internal static event EventHandler<AddMessageEventArgs> AddMessageRequested;
 
-        public static event EventHandler HookRequested;
+        internal static event EventHandler HookRequested;
 
         public static Window MainWindow { get; private set; }
 

@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <OutputPath>..\..\BUSK\bin\Debug\netcoreapp3.1\Extensions\TestExtension\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Images\Logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BUSK.Core\BUSK.Core.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BUSK.UI\BUSK.UI.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Images\Logo.png" />
+  </ItemGroup>
+
+</Project>

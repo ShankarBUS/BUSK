@@ -37,6 +37,7 @@ namespace BUSK
 
             BuskInterop.AddMessageRequested += (s, e) => App.AddMessage(e.Message);
             BuskInterop.Initialize(this);
+            RAMInformation.Instance.SetTotalRAM(HardwareInfo.GetPhysicalMemoryBytes());
             ThemeHandler.Instance = new ThemeHandler();
 
             PageCollector.Instance = new PageCollector();
@@ -45,7 +46,7 @@ namespace BUSK
             ExtensionsFileHandler.LoadExtensionBases();
             ShortcutsManager.Instance.LoadAllShortcutsAync();
             ExtensionsManager.Instance.Initialize();
-            ExtensionsManager.Instance.EnableChangedRequested += (s, e) => ExtensionsFileHandler.SaveExtConfig(s, e.ConfigLocation);
+            ExtensionsManager.Instance.EnableChangedRequested += (s, e) => ExtensionsFileHandler.SaveExtInfo(s, e.ConfigLocation);
 
             //try
             //{

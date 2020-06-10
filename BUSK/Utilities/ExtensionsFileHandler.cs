@@ -1,9 +1,10 @@
 ﻿using BUSK.Core.Extensibility;
+using McMaster.NETCore.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace BUSK.Utilities
@@ -23,41 +24,29 @@ namespace BUSK.Utilities
             return o;
         }
 
-        public static ExtensionBase LoadExtensionBaseFromFile(string location)
+        public static ExtensionBase LoadExtensionBase(PluginLoader loader)
         {
-            try
-            {
-                byte[] raw = File.ReadAllBytes(location);
-                Assembly ass = Assembly.Load(raw);
-                string tn = "TypeName";
-                Type[] types = ass.GetExportedTypes();
-                foreach (Type type in types)
-                {
-                    if (type.BaseType == typeof(ExtensionBase))
-                    {
-                        tn = type.FullName;
-                    }
-                }
+            Type extensionBaseType = loader
+                    .LoadDefaultAssembly()
+                    .GetTypes()
+                    .FirstOrDefault(t => t.IsSubclassOf(typeof(ExtensionBase)) && !t.IsAbstract);
 
-                if (tn != "TypeName")
-                {
-                    ExtensionBase extensionBase = (ExtensionBase)ass.CreateInstance(tn);
-                    return extensionBase;
-                }
-                else { return null; }
-            }
-            catch (Exception ex)
+            if (extensionBaseType == null)
             {
-                Debug.WriteLine(nameof(ExtensionsFileHandler) + " - " + ex.Message);
                 return null;
             }
+
+            ExtensionBase extensionBase = (ExtensionBase)Activator.CreateInstance(extensionBaseType);
+            return extensionBase;
         }
 
-        public const string cfgfileext = "extconfig";
+        public const string cfgfileext = "extinfo";
 
         public static void LoadExtensionBases()
         {
             App.AddMessage("Initializing Extensions");
+
+            var loaders = new List<PluginLoader>();
 
             var dir = new DirectoryInfo(@".\Extensions");
             foreach (FileInfo file in dir.GetFiles($"*.{cfgfileext}", SearchOption.AllDirectories))
@@ -66,10 +55,10 @@ namespace BUSK.Utilities
                 {
                     var x = new XmlSerializer(typeof(ExtensionInfo));
                     var r = new StreamReader(file.FullName);
-                    var ex = (ExtensionInfo)x.Deserialize(r);
+                    var exi = (ExtensionInfo)x.Deserialize(r);
 
-                    var min = ex.MinimumWindowsVersion;
-                    var max = ex.MaximumWindowsVersion;
+                    var min = exi.MinimumWindowsVersion;
+                    var max = exi.MaximumWindowsVersion;
                     var current = Core.SystemInfo.Version.Value;
 
                     if (IsCompatible(min, max, current)) { LoadIt(); }
@@ -78,16 +67,21 @@ namespace BUSK.Utilities
                     {
                         string dllloc = GetOtherFileWithExtension(file.FullName, "dll");
                         string dllname = GetOtherFileWithExtension(file.Name, "dll");
-                        paths.Add(dllname, file.DirectoryName);
 
                         if (File.Exists(dllloc))
                         {
-                            var exbase = LoadExtensionBaseFromFile(dllloc);
+                            var loader = GetDefaultLoader(dllloc);
+                            loaders.Add(loader);
 
-                            var ext = exbase.ExtensionInfo;
-                            ext.IsEnabled = ex.IsEnabled;
+                            var extensionBase = LoadExtensionBase(loader);
 
-                            ExtensionsManager.Instance.Add(exbase, file.FullName, dllloc, file.Directory.FullName, dllname);
+                            if (extensionBase != null)
+                            {
+                                var extensionInfo = extensionBase.ExtensionInfo;
+                                extensionInfo.IsEnabled = exi.IsEnabled;
+
+                                ExtensionsManager.Instance.Add(extensionBase, file.FullName, dllloc, file.Directory.FullName, dllname);
+                            }
                         }
                     }
 
@@ -99,12 +93,49 @@ namespace BUSK.Utilities
             }
         }
 
+        public static bool TryGenerateAndSaveInfoFromExtensionAssembly(string dllloc)
+        {
+            if (File.Exists(dllloc))
+            {
+                var loader = GetDefaultLoader(dllloc);
+
+                var extensionBase = LoadExtensionBase(loader);
+
+                if (extensionBase != null)
+                {
+                    var infopath = GetOtherFileWithExtension(dllloc, cfgfileext);
+                    SaveExtInfo(extensionBase.ExtensionInfo, infopath);
+                    extensionBase = null;
+                    loader.Dispose();
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static PluginLoader GetDefaultLoader(string dllloc)
+        {
+            return PluginLoader.CreateFromAssemblyFile(
+                                dllloc,
+                                isUnloadable: true,
+                                sharedTypes: new Type[]
+                                {
+                                    typeof(ExtensionBase),
+                                    typeof(UI.BuskBar.IBuskBarItem),
+                                    typeof(ModernWpf.ApplicationTheme),
+                                    typeof(ModernWpf.Controls.AppBarButton),
+                                    typeof(System.Drawing.Image),
+                                });
+        }
+
         public static bool IsCompatible(Core.VersionInfo minver, Core.VersionInfo maxver, Core.VersionInfo current)
         {
             return (minver <= current & (maxver == default) ? true : current <= maxver );
         }
 
-        public static void SaveExtConfig(object s, string configLocation)
+        public static void SaveExtInfo(object s, string configLocation)
         {
             var ex = s as ExtensionInfo;
             var x = new XmlSerializer(typeof(ExtensionInfo));
@@ -112,7 +143,5 @@ namespace BUSK.Utilities
             x.Serialize(w, ex);
             w.Flush(); w.Close(); w.Dispose();
         }
-
-        public static Dictionary<string, string> paths = new Dictionary<string, string>();
     }
 }
