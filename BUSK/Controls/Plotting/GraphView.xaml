@@ -9,7 +9,7 @@
     <Grid>
         <Grid x:FieldModifier="private" x:Name="FallbackContent" Visibility="Collapsed">
             <Rectangle Stroke="{DynamicResource SystemControlBackgroundBaseMediumBrush}" RadiusX="4" RadiusY="4" StrokeDashArray="2" StrokeThickness="2"/>
-            <TextBlock Style="{DynamicResource CaptionTextBlockStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Close the Mini View to show the graph here"/>
+            <TextBlock Style="{DynamicResource CaptionTextBlockStyle}" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Close the Mini View to show the graph here"/>
         </Grid>
         <Border x:FieldModifier="private" x:Name="GraphContentHost">
             <Grid x:FieldModifier="private" x:Name="GraphContent">

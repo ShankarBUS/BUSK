@@ -3,7 +3,7 @@ using System;
 
 namespace BUSK.Controls.Plotting
 {
-    public class PerformancePlotter : CounterBase
+    public class PerformancePlotter : CounterBase, IDisposable
     {
         public PerformancePlotter(Action action)
         {
@@ -17,7 +17,14 @@ namespace BUSK.Controls.Plotting
 
         public override void Update()
         {
-            _action.Invoke();
+            _action?.Invoke();
+        }
+
+        public void Dispose()
+        {
+            IsEnabled = false;
+            _action = null;
+            GC.SuppressFinalize(this);
         }
     }
 }

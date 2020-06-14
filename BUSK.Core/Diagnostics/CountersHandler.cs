@@ -55,4 +55,12 @@ namespace BUSK.Core.Diagnostics
             IsRunning = false;
         }
     }
+
+    internal enum CounterType
+    {
+        CPU = 0,
+        RAM = 1,
+        Disk = 2,
+        Network = 3
+    }
 }

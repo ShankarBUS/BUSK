@@ -112,7 +112,7 @@ namespace BUSK.Core.Utilities
 
                 var tmpData = new List<byte[]>();
 
-                ENUMRESNAMEPROC callback = (h, t, name, l) =>
+                bool callback(IntPtr h, IntPtr t, IntPtr name, IntPtr l)
                 {
                     // Refer the following URL for the data structures used here:
                     // http://msdn.microsoft.com/en-us/library/ms997538.aspx
@@ -161,7 +161,7 @@ namespace BUSK.Core.Utilities
                     }
 
                     return true;
-                };
+                }
                 NativeMethods.EnumResourceNames(hModule, RT_GROUP_ICON, callback, IntPtr.Zero);
 
                 iconData = tmpData.ToArray();

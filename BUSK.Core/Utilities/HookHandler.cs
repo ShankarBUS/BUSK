@@ -22,12 +22,12 @@ namespace BUSK.Core.Utilities
             }
             else
             {
-                EventHandler handler = null;
-                handler = (e, args) =>
+                void handler(object e, EventArgs args)
                 {
                     Initialize(BuskInterop.MainWindow);
                     BuskInterop.HookRequested -= handler;
-                };
+                }
+
                 BuskInterop.HookRequested += handler;
             }
         }

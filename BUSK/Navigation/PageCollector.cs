@@ -45,38 +45,13 @@ namespace BUSK.Navigation
         {
             NavItems.Add(new Header() { Name = "Status" });
 
-            if (!Exists(typeof(CPUStatusPage)))
-            {
-                var cpuitem = new NavItem(typeof(CPUStatusPage)) { Icon = new FontIcon() { Glyph = BUSKGlyphs.Processor } };
-                var binding = new Binding(nameof(CPUInformation.CPUUsageText)) { Source = CPUInformation.Instance, StringFormat = "CPU : {0}" };
-                BindingOperations.SetBinding(cpuitem, NavItem.TitleProperty, binding);
-                BindingOperations.SetBinding(cpuitem, NavItem.TooltipProperty, binding);
-                NavItems.Add(cpuitem);
-            }
-            if (!Exists(typeof(RAMStatusPage)))
-            {
-                var ramitem = new NavItem(typeof(RAMStatusPage)) { Icon = new FontIcon() { Glyph = BUSKGlyphs.Memory } };
-                var binding = new Binding(nameof(RAMInformation.RAMUsageText)) { Source = RAMInformation.Instance, StringFormat = "RAM : {0}" };
-                BindingOperations.SetBinding(ramitem, NavItem.TitleProperty, binding);
-                BindingOperations.SetBinding(ramitem, NavItem.TooltipProperty, binding);
-                NavItems.Add(ramitem);
-            }
-            if (!Exists(typeof(DiskStatusPage)))
-            {
-                var diskitem = new NavItem(typeof(DiskStatusPage)) { Icon = new FontIcon() { Glyph = BUSKGlyphs.HardDrive } };
-                var binding = new Binding(nameof(DiskInformation.DiskUsageText)) { Source = DiskInformation.Instance, StringFormat = "Disk : {0}" };
-                BindingOperations.SetBinding(diskitem, NavItem.TitleProperty, binding);
-                BindingOperations.SetBinding(diskitem, NavItem.TooltipProperty, binding);
-                NavItems.Add(diskitem);
-            }
-            if (!Exists(typeof(NetStatusPage)))
-            {
-                var netitem = new NavItem(typeof(NetStatusPage)) { Icon = new FontIcon() { Glyph = BUSKGlyphs.Network } };
-                var binding = new Binding(nameof(NetInformation.Down)) { Source = NetInformation.Instance, StringFormat = "Net : {0}" };
-                BindingOperations.SetBinding(netitem, NavItem.TitleProperty, binding);
-                BindingOperations.SetBinding(netitem, NavItem.TooltipProperty, binding);
-                NavItems.Add(netitem);
-            }
+            AddCPUPage();
+
+            AddRAMPage();
+
+            AddDiskPage();
+
+            AddNetPage();
 
             NavItems.Add(new Separator());
 
@@ -101,8 +76,61 @@ namespace BUSK.Navigation
                 navitem.NavItems.Add(subnavitem);
                 NavItems.Add(navitem);
             }
+
             AddPage(typeof(ExtensionsPage), "Extensions", new FontIcon() { Glyph = BUSKGlyphs.Puzzle }, "Extensions");
         }
+
+        #region Default Pages
+
+        public void AddCPUPage()
+        {
+            if (!Exists(typeof(CPUStatusPage)))
+            {
+                var cpuitem = new NavItem(typeof(CPUStatusPage)) { Icon = new FontIcon() { Glyph = BUSKGlyphs.Processor } };
+                var binding = new Binding(nameof(CPUInformation.CPUUsageText)) { Source = CPUInformation.Instance, StringFormat = "CPU : {0}" };
+                BindingOperations.SetBinding(cpuitem, NavItem.TitleProperty, binding);
+                BindingOperations.SetBinding(cpuitem, NavItem.TooltipProperty, binding);
+                NavItems.Insert(1, cpuitem);
+            }
+        }
+
+        public void AddRAMPage()
+        {
+            if (!Exists(typeof(RAMStatusPage)))
+            {
+                var ramitem = new NavItem(typeof(RAMStatusPage)) { Icon = new FontIcon() { Glyph = BUSKGlyphs.Memory } };
+                var binding = new Binding(nameof(RAMInformation.RAMUsageText)) { Source = RAMInformation.Instance, StringFormat = "RAM : {0}" };
+                BindingOperations.SetBinding(ramitem, NavItem.TitleProperty, binding);
+                BindingOperations.SetBinding(ramitem, NavItem.TooltipProperty, binding);
+                NavItems.Insert(2, ramitem);
+            }
+        }
+
+        public void AddDiskPage()
+        {
+            if (!Exists(typeof(DiskStatusPage)))
+            {
+                var diskitem = new NavItem(typeof(DiskStatusPage)) { Icon = new FontIcon() { Glyph = BUSKGlyphs.HardDrive } };
+                var binding = new Binding(nameof(DiskInformation.DiskUsageText)) { Source = DiskInformation.Instance, StringFormat = "Disk : {0}" };
+                BindingOperations.SetBinding(diskitem, NavItem.TitleProperty, binding);
+                BindingOperations.SetBinding(diskitem, NavItem.TooltipProperty, binding);
+                NavItems.Insert(3, diskitem);
+            }
+        }
+
+        public void AddNetPage()
+        {
+            if (!Exists(typeof(NetStatusPage)))
+            {
+                var netitem = new NavItem(typeof(NetStatusPage)) { Icon = new FontIcon() { Glyph = BUSKGlyphs.Network } };
+                var binding = new Binding(nameof(NetInformation.Down)) { Source = NetInformation.Instance, StringFormat = "Net : {0}" };
+                BindingOperations.SetBinding(netitem, NavItem.TitleProperty, binding);
+                BindingOperations.SetBinding(netitem, NavItem.TooltipProperty, binding);
+                NavItems.Insert(4, netitem);
+            }
+        }
+
+        #endregion
 
         public bool AddPage(Type pageType, string title, IconElement icon, string tooltip)
         {
@@ -115,7 +143,7 @@ namespace BUSK.Navigation
             return false;
         }
 
-        private bool RemovePage(Type pageType)
+        public bool RemovePage(Type pageType)
         {
             if (Exists(pageType))
             {
@@ -125,6 +153,10 @@ namespace BUSK.Navigation
                 {
                     return false;
                 }
+
+                navItem.ClearValue(NavItem.TitleProperty);
+
+                navItem.ClearValue(NavItem.TooltipProperty);
 
                 NavItems.Remove(navItem);
 

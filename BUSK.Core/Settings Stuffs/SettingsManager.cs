@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BUSK.Core.Diagnostics;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace BUSK.Core
@@ -9,6 +10,8 @@ namespace BUSK.Core
 
         internal event EventHandler<InternalThemeChangesEventArgs> InternalThemeChanged;
 
+        internal event EventHandler<ModuleEnabledChangedEventArgs> ModuleEnabledChanged;
+
         public static SettingsManager Instance { get; internal set; }
 
         #region Properties
@@ -18,7 +21,13 @@ namespace BUSK.Core
         public bool CPUModuleEnabled
         {
             get { return cme; }
-            set { SetValueAndSave(ref cme, value); }
+            set
+            {
+                if (SetValueAndSave(ref cme, value))
+                {
+                    ModuleEnabledChanged?.Invoke(this, new ModuleEnabledChangedEventArgs(CounterType.CPU, value));
+                }
+            }
         }
 
         private bool dme = true;
@@ -26,7 +35,13 @@ namespace BUSK.Core
         public bool DiskModuleEnabled
         {
             get { return dme; }
-            set { SetValueAndSave(ref dme, value); }
+            set
+            {
+                if (SetValueAndSave(ref dme, value))
+                {
+                    ModuleEnabledChanged?.Invoke(this, new ModuleEnabledChangedEventArgs(CounterType.Disk, value));
+                }
+            }
         }
 
         private bool nme = true;
@@ -34,7 +49,13 @@ namespace BUSK.Core
         public bool NetModuleEnabled
         {
             get { return nme; }
-            set { SetValueAndSave(ref nme, value); }
+            set
+            {
+                if (SetValueAndSave(ref nme, value))
+                {
+                    ModuleEnabledChanged?.Invoke(this, new ModuleEnabledChangedEventArgs(CounterType.Network, value));
+                }
+            }
         }
 
         private bool rme = true;
@@ -42,7 +63,13 @@ namespace BUSK.Core
         public bool RAMModuleEnabled
         {
             get { return rme; }
-            set { SetValueAndSave(ref rme, value); }
+            set
+            {
+                if (SetValueAndSave(ref rme, value))
+                {
+                    ModuleEnabledChanged?.Invoke(this, new ModuleEnabledChangedEventArgs(CounterType.RAM, value));
+                }
+            }
         }
 
         private Theme theme = Theme.WindowsDefault;
@@ -50,7 +77,13 @@ namespace BUSK.Core
         public Theme Theme
         {
             get { return theme; }
-            set { if (SetValueAndSave(ref theme, value)) { InternalThemeChanged?.Invoke(null, new InternalThemeChangesEventArgs(value)); } }
+            set
+            {
+                if (SetValueAndSave(ref theme, value))
+                {
+                    InternalThemeChanged?.Invoke(null, new InternalThemeChangesEventArgs(value));
+                }
+            }
         }
 
         #endregion
@@ -97,5 +130,18 @@ namespace BUSK.Core
             }
             return false;
         }
+    }
+
+    internal class ModuleEnabledChangedEventArgs : EventArgs
+    {
+        public ModuleEnabledChangedEventArgs(CounterType counterType, bool isEnabled)
+        {
+            CounterType = counterType;
+            IsEnabled = isEnabled;
+        }
+
+        public CounterType CounterType { get; private set; }
+
+        public bool IsEnabled { get; private set; }
     }
 }

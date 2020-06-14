@@ -101,7 +101,7 @@ namespace BUSK.Utilities
 
         public static bool IsCompatible(Core.VersionInfo minver, Core.VersionInfo maxver, Core.VersionInfo current)
         {
-            return (minver <= current & (maxver == default) ? true : current <= maxver );
+            return minver <= current & (maxver == default) || current <= maxver ;
         }
 
         public static void SaveExtConfig(object s, string configLocation)

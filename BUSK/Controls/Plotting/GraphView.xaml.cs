@@ -31,7 +31,7 @@ namespace BUSK.Controls.Plotting
 
             SetBindings();
 
-            MouseDoubleClick += (s, e) => UnDockFromView();
+            MouseDoubleClick += GraphView_MouseDoubleClick;
 
             Loaded += GraphView_Loaded;
             Unloaded += GraphView_Unloaded;
@@ -196,6 +196,18 @@ namespace BUSK.Controls.Plotting
 
         #endregion
 
+        public void Dispose()
+        {
+            performancePlotter.Dispose();
+            DockIntoView();
+            MouseDoubleClick -= GraphView_MouseDoubleClick;
+            Loaded -= GraphView_Loaded;
+            Unloaded -= GraphView_Unloaded;
+            BindingOperations.ClearBinding(Chart, PerformanceChart.MaxYValueProperty);
+            BindingOperations.ClearBinding(Chart, PerformanceChart.YAxisLabelFormatterProperty);
+            MiniViewCommand = null;
+        }
+
         private void SetBindings()
         {
             Chart.SetBinding(PerformanceChart.MaxYValueProperty, new Binding() { Source = this, Path = new PropertyPath(MaxYValueProperty) });
@@ -283,6 +295,11 @@ namespace BUSK.Controls.Plotting
                 MiniViewGlyph = BUSKGlyphs.ReturnToWindow;
                 GraphViewDockChanged?.Invoke(false);
             }
+        }
+
+        private void GraphView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            UnDockFromView();
         }
 
         private void GraphView_Unloaded(object sender, RoutedEventArgs e)
