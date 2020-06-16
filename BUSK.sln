@@ -27,12 +27,16 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BUSKExtension", "Extensions\Templating\Templates\BUSKExtension\BUSKExtension.csproj", "{A832B0A5-C07B-4E1C-8CDA-A4DC8BB6B7B7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Charting", "Charting", "{3548B77B-A69F-4F5D-B364-18DB471BFB76}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.TXT = LICENSE.TXT
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BUSK.Charting.WPF", "Charting\BUSK.Charting.WPF\BUSK.Charting.WPF.csproj", "{E903E1F4-B08D-407D-8F86-17E740D18127}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BUSK.Charting", "Charting\BUSK.Charting\BUSK.Charting.csproj", "{A1355BA1-9CF9-44E7-9753-005DBBAB0F6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUSK.UI", "BUSK.UI\BUSK.UI.csproj", "{FA60A5D8-8401-42E3-9152-72FDEE729013}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BUSK.UI", "BUSK.UI\BUSK.UI.csproj", "{FA60A5D8-8401-42E3-9152-72FDEE729013}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
